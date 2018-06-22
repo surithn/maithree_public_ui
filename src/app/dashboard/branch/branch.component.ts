@@ -29,12 +29,11 @@ export class BranchSelectorComponent implements OnInit {
   }
 
   tapBranch(branch:Object) {
-  	
+
      this.service.changeBranch(branch['id']);
      this.service.setDataInBrowser(branch,'branch');
      this.service.setBranch(branch['name']);
      this.nservice.setbranch(branch['name']);
-     console.log(branch['name'])
 
      if(branch['id'] > 0) {
        // move to assign job page

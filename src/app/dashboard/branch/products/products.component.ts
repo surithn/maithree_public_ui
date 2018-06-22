@@ -34,7 +34,6 @@ export class ProductsComponent implements OnInit {
   	}
 
   getProductsForBranch(id: string) {
-  	console.log(id);
   	this.service.getProductListForBranch(id).subscribe((products)=>{
       this.getSavedProductsList(this.branchId , products);
   	});

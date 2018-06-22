@@ -33,12 +33,10 @@ export class BreadcrumbComponent implements OnInit {
         // In the routeConfig the complete path is not available,
         // so we rebuild it each time
         const nextUrl = `${url}${path}/`;
-        console.log(nextUrl)
         const breadcrumb = {
             label: label,
             url: nextUrl
         };
-         console.log(breadcrumb)
         const newBreadcrumbs = [ ...breadcrumbs, breadcrumb ];
         if (route.firstChild) {
             // If we are not on our current path yet,

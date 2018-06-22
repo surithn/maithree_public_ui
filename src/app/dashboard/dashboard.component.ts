@@ -11,7 +11,7 @@ import * as moment from 'moment';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
-  
+
 
 
   title = 'app';
@@ -21,7 +21,7 @@ export class DashboardComponent implements OnInit {
   bsValue = moment(new Date()).format("MM/DD/YYYY");
 
   constructor(private service: AppService, private nservice: NotificationService) {
-    
+
   }
 
   ngOnInit() {
@@ -39,7 +39,6 @@ export class DashboardComponent implements OnInit {
     }*/
 
     onChange(branchId) {
-      console.log(branchId);
       this.service.changeBranch(branchId);
   }
 

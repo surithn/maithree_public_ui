@@ -12,7 +12,7 @@
 					</div>
 					<div class="col-sm-8 col-md-8 col-6 text-center">
 						<button type="button" class="btn btn-secondary float-right">
-	       					{{p.product_quantity}} 
+	       					{{p.product_quantity}}
 	      				</button>
 					</div>
 				</div>
@@ -82,7 +82,7 @@
             <div class="card-body">
                 <h5 class="card-title border-bottom mb-1">Approx Montetary value - {{targetStartDate}} (Rs) </h5>
                  <div class="row mt-2">
-                   <div class="col-sm-9 offset-sm-2 pt-2" style="font-size:1em;" 
+                   <div class="col-sm-9 offset-sm-2 pt-2" style="font-size:1em;"
                    	*ngIf="jobDetails && targetMap[jobDetails[0].bp_id] ">
                     {{completedCount*price}} /  {{targetMap[jobDetails[0].bp_id]*price}}
                   </div>
@@ -112,7 +112,7 @@
 		<div class="row">
 			<div class="col">
 				<p class="font-weight-dark">History for {{selectedProduct.product_name}} on {{ today | date:'fullDate'}}</p>
-        <div style="max-height:300px !important;height:300px!important;overflow:auto;" id="scrollbar">
+        <div style="max-height:60vh !important;height:60vh!important;overflow:auto;" id="scrollbar">
         <table class="table table-striped">
 				  <thead>
 				    <tr>

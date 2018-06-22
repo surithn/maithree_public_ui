@@ -36,7 +36,6 @@ export class ReportComponent implements OnInit {
   getInventries() {
   	this.reportService.getAllInventoryReport().subscribe(data => {
       this.reportResult = data;
-      console.log(data);
     })
   }
 
@@ -49,7 +48,6 @@ export class ReportComponent implements OnInit {
                   return _.fromPairs(_.zip(["branch", "products"], currentItem));
               })
               .value();
-              console.log(result)
               this.branchWiseData = result;
 
     })
@@ -58,7 +56,6 @@ export class ReportComponent implements OnInit {
   search() {
     this.reportService.getAllInventoryReportByDate(this.fromDate, this.toDate).subscribe(data => {
       this.reportResult = data;
-      console.log(data);
     });
   }
   downloadReport () {

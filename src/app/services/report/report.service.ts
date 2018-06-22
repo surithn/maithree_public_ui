@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
+import { Http, Response } from '@angular/http';
 
+import { HttpClient } from '@angular/common/http';
 @Injectable()
 export class ReportService {
   //private REPORT_BASE_URL = "http://localhost:5555/api/v1/reports";
@@ -11,22 +12,19 @@ export class ReportService {
   private REPORT_BASE_URL = "http://139.59.20.29/server/api/v1/reports";
   private IMAGE_BASE_URL = "http://139.59.20.29/server"
 
-  constructor(private http: Http) { }
+  constructor(private http: HttpClient) { }
 
   getAllInventoryReport(){
-    return this.http.get(this.REPORT_BASE_URL+"/inventories/").map((res) => {
-      let inventries = res.json();
-      console.log(inventries);
+    return this.http.get(this.REPORT_BASE_URL+"/inventories/").map((res: any) => {
+      let inventries = res;
       return inventries;
     });
   }
 
   getAllInventoryReportByDate(fromDate: any, toDate: any){
     let filterDateURL = this.getFilterDateURL(fromDate, toDate);
-    console.log("url" + filterDateURL);
-    return this.http.get(this.REPORT_BASE_URL+"/inventories"+filterDateURL).map((res) => {
-      let inventries = res.json();
-      console.log(inventries);
+    return this.http.get(this.REPORT_BASE_URL+"/inventories"+filterDateURL).map((res: any) => {
+      let inventries = res;
       return inventries;
     });
   }
@@ -61,9 +59,8 @@ export class ReportService {
 
 
   getInventoryDataBasedOnbranch() {
-     return this.http.get(this.REPORT_BASE_URL+"/inventories/summary").map((res) => {
-      let inventries = res.json();
-      console.log(inventries);
+     return this.http.get(this.REPORT_BASE_URL+"/inventories/summary").map((res: any) => {
+      let inventries = res;
       return inventries;
     });
   }

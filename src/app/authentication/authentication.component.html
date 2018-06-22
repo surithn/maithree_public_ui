@@ -1,9 +1,9 @@
 <body>
   <div class="container">
-    <div class="card card-login mx-auto mt-5" style="width:35% !important">
+    <div class="card card-login mx-auto mt-5 col-md-6 col-sm-6">
       <div class="card-header">Login</div>
       <div class="card-body">
-        <form name="form" novalidate="novalidate" class="form" 
+        <form name="form" novalidate="novalidate" class="form"
           [formGroup]="loginFrom" (ngSubmit)="authenticateUser()">
           <div class="form-group">
             <label for="exampleInputEmail1">Email address</label>
@@ -13,7 +13,7 @@
             <label for="exampleInputPassword1">Password</label>
             <input class="form-control" name="password" id="InputPassword" [(ngModel)]= "user.password" type="password" placeholder="Password" formControlName="password" name="password">
           </div>
-         
+
           <button type="submit" [disabled]="!loginFrom.valid" class="btn btn-primary btn-block" href="javascript:void(0)" >Login</button>
         </form>
         <div class="text-center">
@@ -23,5 +23,5 @@
       </div>
     </div>
   </div>
- 
+
 </body>

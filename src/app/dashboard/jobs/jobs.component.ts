@@ -77,7 +77,6 @@ export class JobsComponent implements OnInit {
   }
 
   saveJob() {
-    console.log(this.jobDetails);
     var that = this;
     that.service.getDataFromBrowser('selectedTeacher', function(teacherID) {
       const obj = {
