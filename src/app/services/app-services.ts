@@ -13,8 +13,8 @@ import { LocalStorage } from '@ngx-pwa/local-storage';
 @Injectable()
 export class AppService {
 
-    private BASE_URL = "http://localhost:5555/server/api/v1";
-    private IMAGE_BASE_URL = "http://localhost:5555/server"
+    private BASE_URL = "http://139.59.20.29/server/api/v1";
+    private IMAGE_BASE_URL = "http://139.59.20.29/server"
 
     //private BASE_URL = "https://inventory-tracker-server.herokuapp.com/api/v1";
     //private IMAGE_BASE_URL = "https://inventory-tracker-server.herokuapp.com"
