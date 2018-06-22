@@ -1,0 +1,13 @@
+<div class="container">
+	<div class="row mt-4">
+		<div class="col-sm-3 mt-4" *ngFor="let b of branches; let i = index" (tap)="tapBranch(b)">
+			<div class="card text-white bg-primary bg-custom text-center card-custom" >
+				<div class="card-body">
+					<p class="card-text">{{b.name}}</p>
+				</div>
+			</div>
+		</div>		
+	</div>
+
+
+</div>

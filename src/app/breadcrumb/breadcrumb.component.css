@@ -1,0 +1,21 @@
+.breadcrumb li {
+  display: inline;
+}
+.breadcrumb li+li:before {
+  content: " > ";
+  color: white;
+}
+.breadcrumb{
+ 
+  a{
+    color: white;
+  }
+}
+.breadcrumb {
+  background-color: #feffff !important;
+}
+
+.breadcrumb li:last-child a {
+	cursor: none;
+	text-decoration: none !important;	
+}

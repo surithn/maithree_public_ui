@@ -1,0 +1,17 @@
+<div class="container">
+	<div class="row text-center">
+		<div class="col-sm-4 offset-sm-4">
+		<form class="form-horizontal" [formGroup]="form">
+				<div class="row mt-4">
+					<label for="exampleInputEmail1">Select Teacher</label>
+						<select class="custom-select custom-select-lg mb-4" [(ngModel)]="selectedTeacher"
+						formControlName="teacher" id="teacher">
+	            <option value="-1">Select</option>
+						  <option *ngFor="let t of teachersList" [ngValue]="t.code">{{t.name}}</option>
+						</select>
+				  </div>
+				  <button [disabled]="selectedTeacher<0" class="btn btn-outline-primary btn-block" (click)="saveTecherInfo()">Next</button>
+			  </form>
+		</div>
+	</div>
+</div>

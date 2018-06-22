@@ -1,0 +1,145 @@
+<div class="row">
+
+	<div class="col-12 col-sm-5 col-md-4" style="max-height:75vh !important;height:75vh!important;overflow-y:auto;overflow-x: hidden!important;" id="scrollbarProduct">
+	    <div class="card mt-2 " *ngFor="let p of savedProducts; let i=index" id="{{i}}" (tap)="getJobDetails(p.branch_product_id);updateProductDetails(p)"
+			[ngClass]="(p.isSelected)?' selected_card':''">
+			  <div class="card-body">
+			    <h5 class="card-title border-bottom">{{p.product_name}}</h5>
+				<div class="row">
+					<div class="col-sm-4 col-md-4 col-6">
+						<div> <img src="{{BASE_URL_IMAGES+p.img}}" /></div>
+						<div class="price d-block d-md-none d-lg-block"><small class="text-muted"> price :{{p.price}}</small></div>
+					</div>
+					<div class="col-sm-8 col-md-8 col-6 text-center">
+						<button type="button" class="btn btn-secondary float-right">
+	       					{{p.product_quantity}} 
+	      				</button>
+					</div>
+				</div>
+			  </div>
+			</div>
+	</div>
+	<div class="col-sm-7 col-md-8 border" *ngIf="showDetails">
+		<div class="row mt-2">
+			<div class="col-md-6 col-lg-3 mb-2 col-sm-12">
+					<div class="card text-white bg-secondary" style="height: 100% !important;">
+					  <div class="card-body">
+					    <h5 class="card-title border-bottom mb-2">Session</h5>
+					    <div class="row">
+					    	<div class="col">
+					   		<div class="form-check">
+						      <label class="form-check-label">
+						        <input type="radio" class="form-check-input" [(ngModel)]="session" [value]="true">Afternoon
+						      </label>
+						    </div>
+						    </div>
+						  </div>
+						  <div class="row">
+						  <div class="col">
+						    <div class="form-check">
+						      <label class="form-check-label">
+						        <input type="radio" class="form-check-input" [(ngModel)]="session" [value]="false">Evening
+						      </label>
+						    </div>
+						 </div>
+ 						</div>
+					  </div>
+					</div>
+			</div>
+			<div class="col-md-6 col-lg-3  mb-2 col-sm-12">
+				<div class="card text-white bg-secondary" style="height: 100% !important;">
+					  <div class="card-body">
+					    <h5 class="card-title border-bottom">Completed Today</h5>
+					    <div class="row justify-content-center">
+							   <div class="col">
+							   		<div class="font-weight-light cfont border border-secondary text-center m-1">
+                      <input type="number" class="form-control"  [(ngModel)]="quantity" placeholder="Quantity" aria-label="Quantity" aria-describedby="basic-addon1">
+							   		</div>
+							   </div>
+						</div>
+					  </div>
+					</div>
+      </div>
+
+      <div class="col-md-6 col-lg-3 mb-2 col-sm-12">
+        <div class="card text-white bg-secondary" style="height: 100% !important;">
+				  <div class="card-body">
+					    <h5 class="card-title border-bottom mb-1">Target for {{targetStartDate}} </h5>
+					   	<div class="row mt-2">
+					   		<div class="col-sm-9 offset-sm-2  pt-2" style="font-size:1em;" *ngIf=" jobDetails && targetMap[jobDetails[0].bp_id] ">
+                  {{completedCount}} / {{targetMap[jobDetails[0].bp_id]}}
+                </div>
+                <div class="col-sm-9 offset-sm-3 pt-2" style="font-size:1em;" *ngIf="jobDetails && !targetMap[jobDetails[0].bp_id] ">
+                  {{completedCount}}
+            	  </div>
+					   	</div>
+					  </div>
+					</div>
+      </div>
+
+      <div class="col-md-6 col-lg-3 mb-2 col-sm-12" >
+          <div class="card text-white bg-secondary" style="height: 100% !important;">
+            <div class="card-body">
+                <h5 class="card-title border-bottom mb-1">Approx Montetary value - {{targetStartDate}} (Rs) </h5>
+                 <div class="row mt-2">
+                   <div class="col-sm-9 offset-sm-2 pt-2" style="font-size:1em;" 
+                   	*ngIf="jobDetails && targetMap[jobDetails[0].bp_id] ">
+                    {{completedCount*price}} /  {{targetMap[jobDetails[0].bp_id]*price}}
+                  </div>
+                  <div class="col-sm-9 offset-sm-3 pt-2" style="font-size:1em;" *ngIf=" jobDetails && !targetMap[jobDetails[0].bp_id] ">
+                    {{completedCount*price}}
+                  </div>
+                 </div>
+              </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row " style="margin-left:0px;">
+      <h5 class="mb-2">Comments</h5>
+      <div class="row col-sm-12 " style="width:100%">
+        <div class="col-sm-10">
+            <textarea class="form-control" aria-label="Comments" aria-describedby="basic-addon1"
+            [(ngModel)]="comments"> </textarea>
+        </div>
+        <div class="col-sm-2 col-md-2">
+            <button type="button"class="btn btn-supersmall btn-outline-primary btn-xs" (click)="saveJob()">Save</button>
+          </div>
+      </div>
+    </div>
+
+
+		<div class="row">
+			<div class="col">
+				<p class="font-weight-dark">History for {{selectedProduct.product_name}} on {{ today | date:'fullDate'}}</p>
+        <div style="max-height:300px !important;height:300px!important;overflow:auto;" id="scrollbar">
+        <table class="table table-striped">
+				  <thead>
+				    <tr>
+				      <th scope="col">#</th>
+		              <th scope="col">Action</th>
+		              <th scope="col">Quantity</th>
+		              <th scope="col">Session</th>
+		              <th scope="col">Date/Time</th>
+                  <th scope="col">By</th>
+                  <th scope="col">Comments</th>
+				    </tr>
+				  </thead>
+				  <tbody>
+				    <tr *ngFor="let detail of jobDetails; let i=index">
+                <td *ngIf="detail.quantity!=0" scope="row">{{i+1}}</td>
+                <td *ngIf="detail.quantity!=0">Added</td>
+                <td *ngIf="detail.quantity!=0">{{detail.quantity}}</td>
+                <td *ngIf="detail.quantity!=0">{{detail.enter_session}}</td>
+                <td *ngIf="detail.quantity!=0">{{detail.created_date | date:'dd/MM/yyyy hh:mm:ss'}}</td>
+                <td *ngIf="detail.quantity!=0">{{detail.name}}</td>
+                <td *ngIf="detail.quantity!=0" title="{{detail.comments}}">{{detail.comments ? detail.comments.substring(0,40) : ''}}</td>
+              </tr>
+
+				  </tbody>
+        </table>
+      </div>
+			</div>
+		</div>
+	</div>
+</div>

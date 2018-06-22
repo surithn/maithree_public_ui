@@ -1,0 +1,42 @@
+[
+            {
+                "id":"1",
+                "name":"Tambaram",
+                "products":[
+                    {
+                        "id" : "product1",
+                        "name" : "Door Mats"
+                    },
+                    {
+                        "id" : "product2",
+                        "name" : "Paper Cups"
+                    },{
+                        "id" : "product3",
+                        "name" : "Instance Sticks"
+                    },{
+                        "id" : "product4",
+                        "name" : "Jam"
+                    }
+                ]
+            },
+            {
+                "id":"2",
+                "name":"Mylapore",
+                "products":[
+                    {
+                        "id" : "product1",
+                        "name" : "Door Mats"
+                    },
+                    {
+                        "id" : "product2",
+                        "name" : "Paper Cups"
+                    },{
+                        "id" : "product5",
+                        "name" : "phenyl"
+                    },{
+                        "id" : "product4",
+                        "name" : "Jam"
+                    }
+                ]
+            }
+        ]

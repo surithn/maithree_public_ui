@@ -1,0 +1,30 @@
+<div class="container">
+	<alert type="danger" [hidden]="!throwError">
+	  <strong>Error !</strong> Choose some products.
+	</alert>
+	<div class="row mt-4">
+		<div class="col-sm-3 mt-4" *ngFor="let p of productList; let i = index" (tap)="!p.isAlrdySelected ? selectProducts(p, $event) : return"
+			>
+			<div class="card  text-center card-custom" [ngClass]="[(selectedIndex.indexOf(p.id)!=-1)?'selected-custom':'', p.isAlrdySelected ? 'selected-custom':'']">
+				<div class="card-body">
+					<div class="row">
+						<div class="col-sm-4">
+							<img src="{{BASE_URL_IMAGES+p.img}}" />
+						</div>
+						<div class="col-sm-8">
+							<p class="card-text"><small class="text-muted ">{{p.name}}</small></p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<div class="row mt-4">
+		<div class="col">
+			<button type="button" class="btn btn-outline-primary float-right" (click)="saveProducts()">Next</button>
+
+		</div>
+	</div>
+</div>
