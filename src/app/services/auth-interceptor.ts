@@ -24,6 +24,10 @@ export class AuthInterceptor implements HttpInterceptor {
 intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
   const token = this.getToken();
   const changedReq = req.clone({headers: req.headers.set('auth', token)});
+  if(token ==null || token == "null") {
+     window.localStorage.setItem("mi3userToken", null);
+     this.service.logout();
+  }
   return next.handle(changedReq).do((event: HttpEvent<any>) => {
     if (event instanceof HttpResponse) {
       // do stuff with response if you want
