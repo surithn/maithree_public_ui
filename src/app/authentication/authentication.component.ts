@@ -25,7 +25,7 @@ export class AuthenticationComponent implements OnInit {
 
   ngOnInit() {
     var checkToken = window.localStorage.getItem("mi3userToken")
-    if(checkToken != "null") {
+    if(checkToken != "null" && checkToken != null) {
       this.router.navigateByUrl('/dashboard')
     }else {
       console.log("Need Authorisation ?!")
