@@ -86,7 +86,7 @@ export class ProductsComponent implements OnInit {
           temp.member_code = teacherId;
          	dataArr.push(temp);
   			}
-  			_this.service.saveChoosenProducts(dataArr).subscribe((data: any)=>{
+        _this.service.saveChoosenProducts(dataArr).subscribe((data: any)=>{
   				 _this.router.navigateByUrl('/dashboard/jobs/'+_this.branchId)
   			});
   		})

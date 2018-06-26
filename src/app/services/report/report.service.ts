@@ -9,8 +9,8 @@ export class ReportService {
   // private REPORT_BASE_URL = "http://10.176.16.106:5555/api/v1/reports";
   // private IMAGE_BASE_URL = "http://10.176.16.106:5555"
 
-  private REPORT_BASE_URL = "http://139.59.20.29/server/api/v1/reports";
-  private IMAGE_BASE_URL = "http://139.59.20.29/server"
+  private REPORT_BASE_URL = "/server/api/v1/reports";
+  private IMAGE_BASE_URL = "/server"
 
   constructor(private http: HttpClient) { }
 
