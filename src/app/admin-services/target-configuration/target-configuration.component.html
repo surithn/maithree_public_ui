@@ -87,9 +87,10 @@
   <div class="row">
      <div class="col-md-12 ">
       <div class="form-group">
-        <select class="form-control" id="exampleFormControlSelect2" [(ngModel)]="selectedMonth" >
+        <select class="form-control" id="exampleFormControlSelect2" [(ngModel)]="selectedMonth" 
+        (change)="getListOfProducts(selectedMonth)">
            <option>choose one</option>
-          <option *ngFor="let m of monthList" value="{{m}}">{{m}}</option>
+          <option *ngFor="let m of monthList" value="{{m.value}}">{{m.text}}</option>
         </select>
       </div>
     </div>
@@ -115,10 +116,10 @@
                             <td class="py-1">
                              {{p.name}}
                             </td>
-                            {{p}}
-                            <td class="table-td-custom-size" *ngFor="let d of p.data; let i = index">
+                           
+                            <td class="table-td-custom-size" *ngFor="let d of p.targetData; let i = index">
                               <input type="number" name="janValue"
-                                [(ngModel)]="p.data[i]"
+                                [(ngModel)]="d.targetVal" [disabled]="!d.isEnabled"
                               />
                             </td>
                           </tr>

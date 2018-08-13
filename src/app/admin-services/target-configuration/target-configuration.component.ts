@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {AppService} from '../../services/app-services'
 import {ReportService} from '../../services/report/report.service'
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-target-configuration',
@@ -21,7 +22,7 @@ export class TargetConfigurationComponent implements OnInit {
   ngOnInit() {
     this.getListOfBranches();
     this.getMonth();
-    this.getListOfProducts();
+   // this.getListOfProducts(null);
   }
 
   getMonth(){
@@ -34,8 +35,14 @@ export class TargetConfigurationComponent implements OnInit {
     })
   }
 
-  getListOfProducts() {
-    this.service.getProductList().subscribe((products : any) => {
+  getListOfProducts(d) {
+    console.log(d);
+     var date = moment(new Date()).startOf('year').add(d, 'months').format("YYYY-MM-DD HH:mm:ss")
+    if(!d) {
+      date = moment(new Date()).startOf('month').format("YYYY-MM-DD HH:mm:ss")
+    }
+    console.log(date);
+    this.service.getProductList(date).subscribe((products : any) => {
       for(let i in products){
         products[i].data = new Array(this.branches.length);
       }
@@ -47,9 +54,6 @@ export class TargetConfigurationComponent implements OnInit {
 
   getProductsAgainstBranch(id: string) {
     this.service.getProductListForBranch(id).subscribe((products : any) => {
-      for(let i in products){
-        products[i].data = [1,2,3,4,5,6,7,8,9,10,11,12]
-      }
       this.productList = products;
     })
   }
