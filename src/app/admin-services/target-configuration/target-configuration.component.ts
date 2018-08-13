@@ -10,7 +10,7 @@ import {ReportService} from '../../services/report/report.service'
 export class TargetConfigurationComponent implements OnInit {
 
   constructor(private service: AppService, private reportService : ReportService) { }
-  
+
   branches=[];
   selectedBranch="";
   productList = [];
@@ -19,7 +19,7 @@ export class TargetConfigurationComponent implements OnInit {
   selectedMonth = ""
 
   ngOnInit() {
-  	this.getListOfBranches();
+    this.getListOfBranches();
     this.getMonth();
     this.getListOfProducts();
   }
@@ -43,7 +43,7 @@ export class TargetConfigurationComponent implements OnInit {
     })
   }
 
-  
+
 
   getProductsAgainstBranch(id: string) {
     this.service.getProductListForBranch(id).subscribe((products : any) => {
@@ -56,7 +56,7 @@ export class TargetConfigurationComponent implements OnInit {
 
   updateTarget() {
     console.log("Update target")
-   
+
   }
 
 

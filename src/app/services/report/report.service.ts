@@ -71,7 +71,7 @@ export class ReportService {
 
   getSummaryBasedOnBranch(branchId) {
     console.log(branchId);
-    return this.http.get('../../assets/data.json').map((res: any) => {
+    return this.http.get(this.getReportBaseUrl()+"/inventories/"+branchId+"/summary").map((res: any) => {
       let summary = res;
       return summary;
     });

@@ -174,7 +174,8 @@ export class AppService {
 
 
    getProductList() {
-      return this.http.get(this.getBaseUrl()+"/target/get-target-data").map((response: Response) => {
+      return this.http.get(this.getBaseUrl() + '/target/get-target-data?date=' + moment(new Date()).startOf('month').format("YYYY-MM-DD HH:mm:ss"))
+      .map((response: Response) => {
                 let productList = response;
                 return productList;
         });

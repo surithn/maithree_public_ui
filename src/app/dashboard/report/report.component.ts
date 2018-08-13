@@ -16,6 +16,7 @@ export class ReportComponent implements OnInit {
   fromDate = {};
   toDate = {};
   reportResult = [];
+  branchWiseDataSummary = [];
   branchWiseData = [];
   switchTabs = false;
   branches=[];
@@ -43,7 +44,7 @@ export class ReportComponent implements OnInit {
   ngOnInit() {
     this.getInventries();
     this.getInventryInfoBasedOnBranch();
-    this.getBranches(); 
+    this.getBranches();
   }
 
   getInventries() {
@@ -107,15 +108,15 @@ export class ReportComponent implements OnInit {
 
   getSummaryForBranch(selectedBranch){
     this.reportService.getSummaryBasedOnBranch(selectedBranch).subscribe((summary: any) => {
-    
+
       let monthNames = this.reportService.monthNames;
         for(let i in summary) {
             let date = new Date(summary[i].date)
             console.log(monthNames[date.getMonth()])
             summary[i].month = monthNames[date.getMonth()];
         }
-        
-        this.branchWiseData = summary;
+
+        this.branchWiseDataSummary = summary;
     })
 
   }
