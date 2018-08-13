@@ -112,8 +112,8 @@ export class ReportComponent implements OnInit {
       let monthNames = this.reportService.monthNames;
         for(let i in summary) {
             let date = new Date(summary[i].date)
-            console.log(monthNames[date.getMonth()])
-            summary[i].month = monthNames[date.getMonth()];
+            let month = _.findIndex(monthNames , {value : date.getMonth()});
+            summary[i].month = monthNames[month].text;
         }
 
         this.branchWiseDataSummary = summary;
