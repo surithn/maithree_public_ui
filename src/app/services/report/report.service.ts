@@ -1,21 +1,24 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
+import { UrlService } from '../url-config';
 
 import { HttpClient } from '@angular/common/http';
 @Injectable()
 export class ReportService {
-  //private REPORT_BASE_URL = "http://localhost:5555/api/v1/reports";
-  //private IMAGE_BASE_URL = "http://localhost:5555"
-  // private REPORT_BASE_URL = "http://10.176.16.106:5555/api/v1/reports";
-  // private IMAGE_BASE_URL = "http://10.176.16.106:5555"
 
-  private REPORT_BASE_URL = "/server/api/v1/reports";
-  private IMAGE_BASE_URL = "/server"
+  constructor(private http: HttpClient, private urlService : UrlService) { }
 
-  constructor(private http: HttpClient) { }
+  monthNames = ["January", "February", "March", "April", "May", "June",
+  "July", "August", "September", "October", "November", "December"
+  ];
+
+
+  getReportBaseUrl(){
+    return this.urlService.getBaseUrl()+"/reports"
+  }
 
   getAllInventoryReport(){
-    return this.http.get(this.REPORT_BASE_URL+"/inventories/").map((res: any) => {
+    return this.http.get(this.getReportBaseUrl()+"/inventories/").map((res: any) => {
       let inventries = res;
       return inventries;
     });
@@ -23,7 +26,7 @@ export class ReportService {
 
   getAllInventoryReportByDate(fromDate: any, toDate: any){
     let filterDateURL = this.getFilterDateURL(fromDate, toDate);
-    return this.http.get(this.REPORT_BASE_URL+"/inventories"+filterDateURL).map((res: any) => {
+    return this.http.get(this.getReportBaseUrl()+"/inventories"+filterDateURL).map((res: any) => {
       let inventries = res;
       return inventries;
     });
@@ -59,11 +62,23 @@ export class ReportService {
 
 
   getInventoryDataBasedOnbranch() {
-     return this.http.get(this.REPORT_BASE_URL+"/inventories/summary").map((res: any) => {
+     return this.http.get(this.getReportBaseUrl()+"/inventories/summary").map((res: any) => {
       let inventries = res;
       return inventries;
     });
   }
+
+
+  getSummaryBasedOnBranch(branchId) {
+    console.log(branchId);
+    return this.http.get('../../assets/data.json').map((res: any) => {
+      let summary = res;
+      return summary;
+    });
+  }
+
+
+
 
 
 }

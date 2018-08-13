@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import {AppService} from '../../services/app-services'
+import { FormGroup, FormControl, Validators, AbstractControl} from '@angular/forms';
+import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 
 import * as moment from 'moment';
 
@@ -106,6 +108,12 @@ export class JobsComponent implements OnInit {
         }
       }
     })
+  }
+
+  validateInputForDecimal(e) {
+    if(e.target.value.indexOf(".") >= 0){
+      this.quantity = 0;
+    }
   }
 
 

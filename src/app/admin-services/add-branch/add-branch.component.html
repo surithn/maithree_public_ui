@@ -1,0 +1,29 @@
+<div class="container">
+	<div class="row">
+	    <div class="alert alert-light" role="alert">
+	      Add Branch
+	    </div>
+  </div>
+  
+	<div class="row">
+		<p>List of available branches</p>
+	</div>
+
+	<div class="row">
+		<div class="card bg-primary ml-2 mb-2" style="width: 12rem;" *ngFor="let b of branches">
+		  <div class="card-body">
+		    <a href="/dashboard/branch/{{b.id}}/get-products" class="btn btn-primary">{{b.name}}</a>
+		  </div>
+		</div>
+	</div>
+
+	<div class="row">
+		<form>
+		  <div class="form-group">
+		    <label for="exampleInputEmail1">Branch Name</label>
+		    <input type="text" class="form-control" id="branch" placeholder="Branch Name">
+		  </div>
+		  <button type="submit" class="btn btn-success">Submit</button>
+		</form>
+	</div>	
+</div>

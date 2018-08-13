@@ -1,0 +1,38 @@
+<div class="container">
+  <div class="row">
+    <div class="alert alert-light" role="alert">
+      Add Product
+    </div>
+  </div>
+  
+  <div class="row">
+    <div class="col-md-12 ">
+      <div class="form-group">
+        <select class="form-control" id="exampleFormControlSelect2" [(ngModel)]="selectedBranch" 
+        (change)="getProductsByBranch(selectedBranch)">
+           <option>choose one</option>
+          <option *ngFor="let b of branches" value="{{b.id}}">{{b.name}}</option>
+        </select> 
+      </div>
+    </div>
+  </div>
+
+
+  <div class="row">
+  	<div class="card bg-warning  ml-2 mb-2" style="width: 12rem;" *ngFor="let p of productsByBranch">
+		  <div class="card-body">
+		    <small>{{p.name}}</small>
+		  </div>
+		</div>
+  </div>
+
+  <div class="row" [hidden]="selectedBranch==''">
+  	<form>
+	  <div class="form-group">
+	    <label for="exampleInputEmail1">Product Name</label>
+	    <input type="text" class="form-control" id="product" placeholder="Product Name">
+	  </div>
+	  <button type="submit" class="btn btn-success">Submit</button>
+	</form>
+  </div>
+</div>

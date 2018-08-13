@@ -1,0 +1,132 @@
+[  
+   {  
+      "date":"2018-01-01",
+      "item":[  
+
+      ]
+   },
+   {  
+      "date":"2018-02-01",
+      "item":[  
+
+      ]
+   },
+   {  
+      "date":"2018-03-01",
+      "item":[  
+
+      ]
+   },
+   {  
+      "date":"2018-04-01",
+      "item":[  
+
+      ]
+   },
+   {  
+      "date":"2018-05-01",
+      "item":[  
+
+      ]
+   },
+   {  
+      "date":"2018-06-01",
+      "item":[  
+
+      ]
+   },
+   {  
+      "date":"2018-07-01",
+      "item":[  
+         {  
+            "product_name":"COTTON FABRIC",
+            "target":50,
+            "quantity":8
+         },
+         {  
+            "product_name":"COTTON WASTE MAT",
+            "target":150,
+            "quantity":140
+         },
+         {  
+            "product_name":"NEWS PAPER  BAG - Type 1 - SANITARY",
+            "target":5000,
+            "quantity":4700
+         },
+         {  
+            "product_name":"NEWS PAPER  BAG - Type 3 - TAPOVAN WITHOUT HANDLE",
+            "target":2000,
+            "quantity":2050
+         },
+         {  
+            "product_name":"PAPER CUP",
+            "target":10000,
+            "quantity":3250
+         },
+         {  
+            "product_name":"SAMBRANI (24 Pieces)",
+            "target":300,
+            "quantity":227
+         }
+      ]
+   },
+   {  
+      "date":"2018-08-01",
+      "item":[  
+         {  
+            "product_name":"COTTON WASTE MAT",
+            "target":150,
+            "quantity":23
+         },
+         {  
+            "product_name":"NEWS PAPER  BAG - Type 1 - SANITARY",
+            "target":5000,
+            "quantity":450
+         },
+         {  
+            "product_name":"NEWS PAPER  BAG - Type 3 - TAPOVAN WITHOUT HANDLE",
+            "target":2000,
+            "quantity":520
+         },
+         {  
+            "product_name":"PAPER BAG ",
+            "target":1000,
+            "quantity":10
+         },
+         {  
+            "product_name":"PAPER CUP",
+            "target":10000,
+            "quantity":700
+         },
+         {  
+            "product_name":"SAMBRANI (24 Pieces)",
+            "target":300,
+            "quantity":20
+         }
+      ]
+   },
+   {  
+      "date":"2018-09-01",
+      "item":[  
+
+      ]
+   },
+   {  
+      "date":"2018-10-01",
+      "item":[  
+
+      ]
+   },
+   {  
+      "date":"2018-11-01",
+      "item":[  
+
+      ]
+   },
+   {  
+      "date":"2018-12-01",
+      "item":[  
+
+      ]
+   }
+]

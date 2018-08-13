@@ -20,9 +20,13 @@ import {BranchSelectorModule} from "./dashboard/branch/branch.module"
 import {JobsModule} from "./dashboard/jobs/jobs.module";
 import { ReportModule } from './dashboard/report/report.module';
 import { AuthenticationModule } from './authentication/authentication.module';
+import { AdminServicesModule } from './admin-services/admin-services.module';
+import { AdminLoginModule } from './admin-login/admin-login.module';
 
+ 
 /**Services **/
 import { AppService } from "./services/app-services";
+import { UrlService } from "./services/url-config";
 import { ReportService } from './services/report/report.service';
 import { AppComponent } from './app.component';
 import { BreadcrumbComponent } from './breadcrumb/breadcrumb.component';
@@ -56,10 +60,12 @@ export class MyHammerConfig extends HammerGestureConfig  {
     AuthenticationModule,
     NgbModule.forRoot(),
     NgDragDropModule.forRoot(),
-    BsDatepickerModule.forRoot()
+    BsDatepickerModule.forRoot(),
+    AdminServicesModule,
+    AdminLoginModule
 
   ],
-  providers: [AppService, NotificationService, ReportService, { provide: HAMMER_GESTURE_CONFIG, useClass: MyHammerConfig } ,
+  providers: [AppService, UrlService,  NotificationService, ReportService, { provide: HAMMER_GESTURE_CONFIG, useClass: MyHammerConfig } ,
               {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true,}],
   bootstrap: [AppComponent]
 })

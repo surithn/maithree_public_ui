@@ -4,6 +4,7 @@ import {NgbDateStruct} from '@ng-bootstrap/ng-bootstrap';
 import * as _ from "lodash";
 import { Angular5Csv } from 'angular5-csv/Angular5-csv';
 import * as moment from 'moment';
+import { AppService } from '../../services/app-services';
 
 
 @Component({
@@ -17,7 +18,10 @@ export class ReportComponent implements OnInit {
   reportResult = [];
   branchWiseData = [];
   switchTabs = false;
-  constructor(private reportService: ReportService) { }
+  branches=[];
+  selectedBranch="";
+
+  constructor(private reportService: ReportService, private service: AppService) { }
   groupBranch:any;
   branch = {
     name : "",
@@ -28,14 +32,29 @@ export class ReportComponent implements OnInit {
   searchByBranch = '';
   searchByProduct = ''
 
+  tabs={
+    "tab1" : true,
+    "tab2" : false,
+    "tab3" : false
+  }
+
+
+
   ngOnInit() {
     this.getInventries();
     this.getInventryInfoBasedOnBranch();
+    this.getBranches(); 
   }
 
   getInventries() {
   	this.reportService.getAllInventoryReport().subscribe(data => {
       this.reportResult = data;
+    })
+  }
+
+  getBranches() {
+      this.service.getBranches().subscribe((branches:any) =>  {
+      this.branches = branches;
     })
   }
 
@@ -77,6 +96,28 @@ export class ReportComponent implements OnInit {
       headers: ['Branch', 'Product', 'Quantity' , 'Session' , 'Submitted By', 'Date' , 'Comments']
     };
    const rpt = new Angular5Csv(rslt, 'Maithree Report ' + moment(new Date()).format('DD/MM/YYYY'), options );
+  }
+
+  switchTab(id){
+    for(var i in this.tabs) {
+      this.tabs[i] = false;
+    }
+    this.tabs[id] = true;
+  }
+
+  getSummaryForBranch(selectedBranch){
+    this.reportService.getSummaryBasedOnBranch(selectedBranch).subscribe((summary: any) => {
+    
+      let monthNames = this.reportService.monthNames;
+        for(let i in summary) {
+            let date = new Date(summary[i].date)
+            console.log(monthNames[date.getMonth()])
+            summary[i].month = monthNames[date.getMonth()];
+        }
+        
+        this.branchWiseData = summary;
+    })
+
   }
 
 }

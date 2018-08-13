@@ -1,0 +1,13 @@
+
+
+.table-td-custom-size {
+	max-width: 35%;	
+}
+
+.table-custom{
+	font-size: 0.7rem;
+}
+
+.table-custom input {
+	width: 50px !important;
+}

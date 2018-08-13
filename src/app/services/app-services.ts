@@ -9,25 +9,28 @@ import { HttpClient } from '@angular/common/http';
 import { Router, ActivatedRoute } from "@angular/router";
 import { LocalStorage } from '@ngx-pwa/local-storage';
 
+import { UrlService } from './url-config';
+
 
 @Injectable()
 export class AppService {
 
-    private BASE_URL = "/server/api/v1";
-    private IMAGE_BASE_URL = "/server"
+    /*private BASE_URL = " http://localhost:5555/server/api/v1";
+    private IMAGE_BASE_URL = " http://localhost:5555/server"
 
     //private BASE_URL = "https://inventory-tracker-server.herokuapp.com/api/v1";
     //private IMAGE_BASE_URL = "https://inventory-tracker-server.herokuapp.com"
    // private BASE_URL = "http://10.176.16.106:5555/api/v1";
   //  private IMAGE_BASE_URL = "http://10.176.16.106:5555";
+*/
     private selectedBranch = new BehaviorSubject<string>("1");
     currentBranch = this.selectedBranch.asObservable();
     private SELECTED_BRANCH:any;
 
-    constructor(private http: HttpClient, private router:Router, private localStorage: LocalStorage) { }
+    constructor(private http: HttpClient, private router:Router, private localStorage: LocalStorage, private urlService : UrlService) { }
 
     getBaseUrl() {
-        return this.BASE_URL;
+        return this.urlService.getBaseUrl();
     }
 
     setBranch(branch: string){
@@ -38,7 +41,7 @@ export class AppService {
     }
 
     getImageBaseUrl(){
-      return this.IMAGE_BASE_URL;
+      return this.urlService.getBaseUrlForImages();
     }
 
     logout() {
@@ -48,28 +51,28 @@ export class AppService {
     }
 
     getBranches() {
-        return this.http.get(this.BASE_URL+"/branches").map((response: Response) => {
+        return this.http.get(this.getBaseUrl()+"/branches").map((response: Response) => {
                 let branches = response;
                 return branches;
         });
     }
 
     getTeachersList(branchId: string) {
-         return this.http.get(this.BASE_URL+"/branches/" +branchId + "/teachers").map((response: Response) => {
+         return this.http.get(this.getBaseUrl()+"/branches/" +branchId + "/teachers").map((response: Response) => {
                 let teachersList = response;
                 return teachersList;
         });
     }
 
     getProductListForBranch(branchId: string) {
-         return this.http.get(this.BASE_URL+"/branches/"+branchId + "/products").map((response: Response) => {
+         return this.http.get(this.getBaseUrl()+"/branches/"+branchId + "/products").map((response: Response) => {
                 let productList = response;
                 return productList;
         });
     }
 
     saveChoosenProducts(data: any) {
-       return this.http.post(this.BASE_URL + "/inventories",data)
+       return this.http.post(this.getBaseUrl() + "/inventories",data)
             .map((response: Response) => {
                 let resp = response;
                 return resp;
@@ -79,7 +82,7 @@ export class AppService {
     getSavedProducts(branchId: string) {
         var startDate = moment(new Date()).startOf("day").format("YYYY-MM-DD HH:mm:ss");
         var endDate = moment(new Date()).endOf("day").format("YYYY-MM-DD HH:mm:ss");
-         return this.http.get(this.BASE_URL+"/inventories/branch/"+branchId+"?startDate="+startDate+"&endDate=" + endDate).map((response: Response) => {
+         return this.http.get(this.getBaseUrl()+"/inventories/branch/"+branchId+"?startDate="+startDate+"&endDate=" + endDate).map((response: Response) => {
                 let productList = response;
                 return productList;
         });
@@ -114,14 +117,14 @@ export class AppService {
     getJobDetails(id : string){
         var startDate = moment(new Date()).startOf("day").format("YYYY-MM-DD HH:mm:ss");
         var endDate = moment(new Date()).endOf("day").format("YYYY-MM-DD HH:mm:ss");
-         return this.http.get(this.BASE_URL+"/branchProduct/"+id+"/inventories/?startDate="+startDate+"&endDate=" + endDate).map((response: Response) => {
+         return this.http.get(this.getBaseUrl()+"/branchProduct/"+id+"/inventories/?startDate="+startDate+"&endDate=" + endDate).map((response: Response) => {
                 let jobsList = response;
                 return jobsList;
         });
     }
 
     updateJobDetails(data: any) {
-      return this.http.post(this.BASE_URL + "/inventories",[data])
+      return this.http.post(this.getBaseUrl() + "/inventories",[data])
            .map((response: Response) => {
                let resp = response;
                return resp;
@@ -130,7 +133,7 @@ export class AppService {
 
    getTargetByBranch (branchId: string) {
      var date = moment(new Date()).startOf("day").format("YYYY-MM-DD HH:mm:ss");
-     return this.http.get(this.BASE_URL+"/target/branch/"+branchId+"?date=" + date).map((response: Array<object>) => {
+     return this.http.get(this.getBaseUrl()+"/target/branch/"+branchId+"?date=" + date).map((response: Array<object>) => {
         let targetData =response;
         let targetMap = {};
         targetData.forEach(targetObj => {
@@ -144,7 +147,7 @@ export class AppService {
     // weekly - Monday - Sunday
     var startDate = moment(new Date()).startOf("week").add(1, 'days').format("YYYY-MM-DD HH:mm:ss");
     var endDate = moment(new Date()).endOf("week").add(1, 'days').format("YYYY-MM-DD HH:mm:ss");
-     return this.http.get(this.BASE_URL+"/branchProduct/"+branchProductId+"/count/?startDate="+startDate+"&endDate=" + endDate).map((response: Array<object>) => {
+     return this.http.get(this.getBaseUrl()+"/branchProduct/"+branchProductId+"/count/?startDate="+startDate+"&endDate=" + endDate).map((response: Array<object>) => {
         let completedObj = response
         return completedObj && completedObj.length > 0 ? completedObj[0]["completedCount"] : 0 ;
     });
@@ -152,7 +155,7 @@ export class AppService {
 
 
    login(user: any) {
-       return this.http.post(this.BASE_URL + "/auth/login",user)
+       return this.http.post(this.getBaseUrl() + "/auth/login",user)
             .map((response: Response) => {
                 let resp = response;
                 return resp;
@@ -163,9 +166,17 @@ export class AppService {
     // weekly - Monday - Sunday
     var startDate = moment(new Date()).startOf("month").format("YYYY-MM-DD HH:mm:ss");
     var endDate = moment(new Date()).endOf("month").format("YYYY-MM-DD HH:mm:ss");
-     return this.http.get(this.BASE_URL+"/branchProduct/"+branchProductId+"/details/?startDate="+startDate+"&endDate=" + endDate).map((response: Response) => {
+     return this.http.get(this.getBaseUrl()+"/branchProduct/"+branchProductId+"/details/?startDate="+startDate+"&endDate=" + endDate).map((response: Response) => {
         let result = response;
         return result;
     });
+   }
+
+
+   getProductList() {
+      return this.http.get(this.getBaseUrl()+"/target/get-target-data").map((response: Response) => {
+                let productList = response;
+                return productList;
+        });
    }
 }
