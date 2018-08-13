@@ -51,18 +51,30 @@ export class TargetConfigurationComponent implements OnInit {
   }
 
 
-
   getProductsAgainstBranch(id: string) {
-    this.service.getProductListForBranch(id).subscribe((products : any) => {
+    this.service.getProductListForBranch(id).subscribe((products: any) => {
       this.productList = products;
-    })
+    });
   }
 
   updateTarget() {
-    console.log("Update target")
+    console.log('Update target');
 
+    const date = moment(new Date()).startOf('year').add(this.selectedMonth, 'months').format('YYYY-MM-DD HH:mm:ss');
+
+    let targetData = [];
+
+    for (const p of this.productList) {
+      targetData.push(...p.targetData);
+    }
+
+    targetData = targetData.filter((data, i) => {
+      return data.bp_id !== '' ;
+    });
+
+    this.service.createOrUpdateTargets(date, targetData).subscribe((result: any) => {
+      alert('Target set successfully');
+    });
   }
-
-
 
 }

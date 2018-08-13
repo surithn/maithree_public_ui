@@ -176,8 +176,16 @@ export class AppService {
    getProductList(date) {
       return this.http.get(this.getBaseUrl() + '/target/get-target-data?date=' + date)
       .map((response: Response) => {
-                let productList = response;
-                return productList;
+            let productList = response;
+            return productList;
         });
    }
+
+   createOrUpdateTargets(date , targets) {
+      return this.http.post(this.getBaseUrl() + '/target', {date, targets}).map((response: Response) => {
+        const result = response;
+        return result;
+      });
+   }
+
 }
