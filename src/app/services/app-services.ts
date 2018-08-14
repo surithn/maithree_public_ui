@@ -15,14 +15,6 @@ import { UrlService } from './url-config';
 @Injectable()
 export class AppService {
 
-    /*private BASE_URL = " http://localhost:5555/server/api/v1";
-    private IMAGE_BASE_URL = " http://localhost:5555/server"
-
-    //private BASE_URL = "https://inventory-tracker-server.herokuapp.com/api/v1";
-    //private IMAGE_BASE_URL = "https://inventory-tracker-server.herokuapp.com"
-   // private BASE_URL = "http://10.176.16.106:5555/api/v1";
-  //  private IMAGE_BASE_URL = "http://10.176.16.106:5555";
-*/
     private selectedBranch = new BehaviorSubject<string>("1");
     currentBranch = this.selectedBranch.asObservable();
     private SELECTED_BRANCH:any;
@@ -89,7 +81,7 @@ export class AppService {
     }
 
     changeBranch(branch: string) {
-        this.selectedBranch.next(branch)
+        this.selectedBranch.next(branch);
     }
 
     getHeaders() {
@@ -187,5 +179,6 @@ export class AppService {
         return result;
       });
    }
+
 
 }

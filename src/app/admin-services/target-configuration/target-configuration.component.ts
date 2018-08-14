@@ -36,12 +36,12 @@ export class TargetConfigurationComponent implements OnInit {
   }
 
   getListOfProducts(d) {
-    console.log(d);
-     var date = moment(new Date()).startOf('year').add(d, 'months').format("YYYY-MM-DD HH:mm:ss")
+  
+    var date = moment(new Date()).startOf('year').add(d, 'months').format("YYYY-MM-DD HH:mm:ss")
     if(!d) {
       date = moment(new Date()).startOf('month').format("YYYY-MM-DD HH:mm:ss")
     }
-    console.log(date);
+    
     this.service.getProductList(date).subscribe((products : any) => {
       for(let i in products){
         products[i].data = new Array(this.branches.length);
@@ -58,12 +58,8 @@ export class TargetConfigurationComponent implements OnInit {
   }
 
   updateTarget() {
-    console.log('Update target');
-
     const date = moment(new Date()).startOf('year').add(this.selectedMonth, 'months').format('YYYY-MM-DD HH:mm:ss');
-
     let targetData = [];
-
     for (const p of this.productList) {
       targetData.push(...p.targetData);
     }
