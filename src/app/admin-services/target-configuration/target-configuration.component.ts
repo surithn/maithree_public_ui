@@ -22,7 +22,15 @@ export class TargetConfigurationComponent implements OnInit {
   ngOnInit() {
     this.getListOfBranches();
     this.getMonth();
+    this.setCurrentMonthOnStartUp();
    // this.getListOfProducts(null);
+  }
+
+  setCurrentMonthOnStartUp() {
+    let d = new Date();
+    let m = this.monthList[d.getMonth()];
+    this.selectedMonth = m.value;
+    this.getListOfProducts(m.value)
   }
 
   getMonth(){
@@ -36,7 +44,6 @@ export class TargetConfigurationComponent implements OnInit {
   }
 
   getListOfProducts(d) {
-  
     var date = moment(new Date()).startOf('year').add(d, 'months').format("YYYY-MM-DD HH:mm:ss")
     if(!d) {
       date = moment(new Date()).startOf('month').format("YYYY-MM-DD HH:mm:ss")

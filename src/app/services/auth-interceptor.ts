@@ -23,6 +23,12 @@ intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> 
      window.localStorage.setItem("mi3userToken", null);
      this.service.logout();
   }
+  console.log("req url ", req.url);
+  if(req.url.includes('admin') && window.sessionStorage.getItem("isAdmin") == 'N') {
+     window.localStorage.setItem("mi3userToken", null);
+     window.sessionStorage.setItem("isAdmin", null);
+     this.service.logout();
+  }
   return next.handle(changedReq).do((event: HttpEvent<any>) => {
     if (event instanceof HttpResponse) {
       // do stuff with response if you want

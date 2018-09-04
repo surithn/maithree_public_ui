@@ -5,7 +5,6 @@
       <div class="form-group">
         <select class="form-control" id="exampleFormControlSelect2" [(ngModel)]="selectedMonth" 
         (change)="getListOfProducts(selectedMonth)">
-           <option>choose one</option>
           <option *ngFor="let m of monthList" value="{{m.value}}">{{m.text}}</option>
         </select>
       </div>
@@ -47,6 +46,6 @@
               </div>
             </div>
             <div class="row mt-2" *ngIf="selectedMonth!=''">
-              <button class="offset-md-3 btn btn-primary" (click)="updateTarget()">Update Target</button>
+              <button class="offset-md-10 btn btn-primary" (click)="updateTarget()">Update Target</button>
             </div>
         </div>
