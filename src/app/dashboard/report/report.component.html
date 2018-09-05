@@ -127,14 +127,14 @@
           <div class="form-group">
             <select class="form-control" id="exampleFormControlSelect2" [(ngModel)]="selectedBranch"
             (change)="getSummaryForBranch(selectedBranch)">
-               <option>choose one</option>
+               <option value="0101">Choose Branch</option>
               <option *ngFor="let b of branches" value="{{b.id}}">{{b.name}}</option>
             </select>
           </div>
         </div>
       </div>
 
-      <div class="row" *ngIf="tabs.tab2 && selectedBranch != ''">
+      <div class="row" *ngIf="tabs.tab2 && selectedBranch != '' && selectedBranch != '0101'">
         <div class="col-sm-5 m-3 col-md-5 col-lg-3 cBranch" *ngFor="let b of branchWiseDataSummary">
             <div class="card" >
               <div class="card-body">

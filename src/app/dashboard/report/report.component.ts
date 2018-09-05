@@ -20,7 +20,7 @@ export class ReportComponent implements OnInit {
   branchWiseData = [];
   switchTabs = false;
   branches=[];
-  selectedBranch="";
+  selectedBranch="0101";
 
   constructor(private reportService: ReportService, private service: AppService) { }
   groupBranch:any;
@@ -45,6 +45,7 @@ export class ReportComponent implements OnInit {
     this.getInventries();
     this.getInventryInfoBasedOnBranch();
     this.getBranches();
+
   }
 
   getInventries() {
