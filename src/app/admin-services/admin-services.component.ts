@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 declare var $: any; 
+import {AppService} from '../services/app-services';
 
 @Component({
   selector: 'app-admin-services',
@@ -8,7 +9,7 @@ declare var $: any;
 })
 export class AdminServicesComponent implements OnInit {
 
-  constructor() { }
+  constructor(private service : AppService) { }
 
   ngOnInit() {
 
@@ -23,6 +24,10 @@ export class AdminServicesComponent implements OnInit {
     })
 
 }
+
+  logout(){
+    this.service.logout();
+  }
 
 
 }

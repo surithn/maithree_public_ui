@@ -39,6 +39,7 @@ export class AppService {
     logout() {
        console.log("Fallback to login")
        window.localStorage.setItem("mi3userToken", null);
+       window.sessionStorage.setItem("isAdmin", null);
        this.router.navigateByUrl('/login')
     }
 

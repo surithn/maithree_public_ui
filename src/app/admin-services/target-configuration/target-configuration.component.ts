@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {AppService} from '../../services/app-services'
 import {ReportService} from '../../services/report/report.service'
 import * as moment from 'moment';
+import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 
 @Component({
   selector: 'app-target-configuration',
@@ -10,7 +11,7 @@ import * as moment from 'moment';
 })
 export class TargetConfigurationComponent implements OnInit {
 
-  constructor(private service: AppService, private reportService : ReportService) { }
+  constructor(private service: AppService, private reportService : ReportService,public toastr: ToastsManager) { }
 
   branches=[];
   selectedBranch="";
@@ -76,7 +77,7 @@ export class TargetConfigurationComponent implements OnInit {
     });
 
     this.service.createOrUpdateTargets(date, targetData).subscribe((result: any) => {
-      alert('Target set successfully');
+       this.toastr.error('Target set successfully', 'Success !');
     });
   }
 
