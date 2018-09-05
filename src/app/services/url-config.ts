@@ -7,7 +7,7 @@ export class UrlService {
 
 	
 	urlList: any = {
-		baseUrl 			: "/server/api/v1/",
+		baseUrl 			: "/server/api/v1",
 		baseImageUrl		: "/server",
 		localBaseUrl 		: "http://localhost:5555/server/api/v1",
 		localBaseImageUrl	: "http://localhost:5555/server",
