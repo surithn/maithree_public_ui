@@ -1,4 +1,4 @@
-<div class="container">
+<!-- <div class="container">
   <div class="row">
     <div class="alert alert-light" role="alert">
       Add Product
@@ -35,4 +35,87 @@
 	  <button type="submit" class="btn btn-success">Submit</button>
 	</form>
   </div>
+</div> -->
+
+<div class="container">
+
+  <div class="alert alert-light" role="alert">
+      Add Product
+  </div>
+
+  <div class="row">
+    <div>
+        <form>
+            <div class="form-row">
+              <div class="form-group col-7">
+                <label>Product Name</label>
+                <input type="text" 
+                        class="form-control" 
+                        id="productName" 
+                        placeholder="Product Name">
+              </div>
+              <div class="form-group ">
+                <label>Product Description</label>
+                <input type="text" 
+                        class="form-control" 
+                        id="inputPassword4" 
+                        placeholder="Password">
+              </div>
+            </div>
+      </form>
+    </div>
+  
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      
+        <table class="table table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th>Task Name</th>
+                    <th>Task Description</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let field of fieldArray; let i = index">
+                    <td>
+                        <input [(ngModel)]="field.taskName" class="form-control" type="text" name="{{field.taskName}}" />
+                    </td>
+                    <td>
+                        <input [(ngModel)]="field.taskDesc" class="form-control" type="text" name="{{field.taskDesc}}" />
+                    </td>
+                    <td width="150px">
+                        <button class="glyphicon glyphicon-remove btn btn-default"  type="button" (click)="deleteFieldValue(i)">Delete</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input class="form-control" type="text" id="newAttributeTaskName" [(ngModel)]="newAttribute.taskName" name="newAttributeTaskName" />
+                    </td>
+                     <td>
+                        <input class="form-control" type="text" id="newAttributeTaskDesc" [(ngModel)]="newAttribute.taskDesc" name="newAttributeTaskDesc" />
+                    </td>
+                    <td width="150px">
+                        <button class=" btn btn-default" type="button" (click)="addFieldValue()">Add</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+      <!-- Editable table -->
+
+      <button type="button" 
+            class="btn btn-info" 
+            (click)="submitProduct()"
+            style="background-color: #16A085; float:right; margin-right:20px">
+            Submit
+        </button>
+
+    </div>
+  </div>
+
+
+
 </div>
