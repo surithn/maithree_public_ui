@@ -1,92 +1,156 @@
-<div class="container">
+<div class="container" style="border: #e3e3e3 solid 1px;padding: 20px 40px;">
   <div class="row">
-    <div class="alert alert-light" role="alert">
       Add Student to branch
-    </div>
   </div>
+  <hr>
+  <br/>
   <div class="row">
-    <div class="col-md-12 ">
-      <label>Select Branch</label>
-      <select [(ngModel)]="branchSelect" name="branchSelect" (change)="getSelectedBranch()">
-        <option *ngFor="let branch of branchList; let i = index" [value]="i"> {{branch.name}}</option>
-      </select>
+      <div class="col-sm-12">
+          <form class="form-horizontal">
+            <div class="form-group">
+              <label class="control-label col-sm-2" for="email">Select Branch:</label>
+              <select [(ngModel)]="branchSelect" name="branchSelect" (change)="getSelectedBranch()">
+                <option *ngFor="let branch of branchList; let i = index" [value]="i" style="text-align: center"> {{branch.name}}</option>
+              </select>
+            </div>
+          </form>
+      </div>
     </div>
-  </div>
+  <div class="row" style="margin-top: 10px;">
+      <div class="col-sm-6">
+          <form class="form-horizontal">
+              <div class="form-group">
+                <label class="control-label col-sm-4" for="firstname">First Name:</label>
+                <div class="col-sm-12">
+                  <input type="text" class="form-control" id="firstname" placeholder="Enter first name" name="firstname">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label col-sm-4" for="middlename">Middle Name:</label>
+                <div class="col-sm-12">          
+                  <input type="text" class="form-control" id="middlename" placeholder="Enter middle name" name="middlename">
+                </div>
+              </div>
+              <div class="form-group">
+                  <label class="control-label col-sm-4" for="lastname">Last Name:</label>
+                  <div class="col-sm-12">
+                    <input type="text" class="form-control" id="lastname" placeholder="Enter last name" name="lastname">
+                  </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-4" for="dob">Date of Birth:</label>
+                    <div class="col-sm-12">
+                      <input type="date" class="form-control" id="dob" placeholder="Enter date of brith" name="dob">
+                    </div>
+                  </div>
+            </form>
+      </div>
+      <div class="col-sm-6">
+          <form class="form-horizontal">
+              <div class="form-group">
+                <label class="control-label col-sm-4" for="guardianname">Guardian Name:</label>
+                <div class="col-sm-12">
+                  <input type="guardianname" class="form-control" id="guardianname" placeholder="Enter guardian name" name="guardianname">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label col-sm-4" for="phone">Phone Number:</label>
+                <div class="col-sm-12">          
+                  <input type="text" class="form-control" id="phone" placeholder="Enter phone number" name="phone">
+                </div>
+              </div>
+              <div class="form-group">
+                  <label class="control-label col-sm-4" for="email">Email Address:</label>
+                  <div class="col-sm-12">          
+                    <input type="email" class="form-control" id="email" placeholder="Enter email id" name="email">
+                  </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-4" for="pwd">Gender:</label>
+                    <div class="col-sm-12">
+                          <label class="radio-inline">
+                            <input type="radio" name="gender" value="male" style="margin-right: 10px;" checked>Male
+                          </label>
+                          <label class="radio-inline" style="margin-left: 15px">
+                            <input type="radio" name="gender" value="female" style="margin-right: 10px;">Female
+                          </label>        
+                    </div>
+                  </div>
+            </form>
+      </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <form class="form-horizontal">
+                <div class="form-group">
+                  <label class="control-label col-sm-4" for="address">Address:</label>
+                  <div class="col-sm-12">
+                    <input type="text" class="form-control" id="address" placeholder="Enter address" name="address">
+                  </div>
+                </div>
+              </form>
+        </div>
+        <div class="col-sm-6">
+            <form class="form-horizontal">
+                <div class="form-group">
+                  <label class="control-label col-sm-4" for="state">State:</label>
+                  <div class="col-sm-12">
+                      <select [(ngModel)]="branchSelect" name="branchSelect" (change)="getSelectedBranch()" style="width: 100%;height: 38px;">
+                        <option *ngFor="let state of states; let i = index" [value]="i"> {{state.name}}</option>
+                      </select>
+                  </div>
+                </div>
+              </form>
+        </div>
+        <div class="col-sm-6">
+            <form class="form-horizontal">
+                <div class="form-group">
+                  <label class="control-label col-sm-4" for="pincode">Pincode:</label>
+                  <div class="col-sm-12">
+                    <input type="text" class="form-control" id="pincode" placeholder="Enter pincode" name="pincode">
+                  </div>
+                </div>
+              </form>
+        </div>
+      </div>
+      <div class="row" style="background: #f1f1f1;border-radius: 15px;margin-top: 10px;padding: 20px 20px;">
+          <div class="col-sm-12">
+              Assign task to student 
+              <hr>
+          </div>  
 
-  <form>
-    <div class="row">
-      <div className="form-group row">
-        <div className="col-lg-3">
-          <label>First Name</label>
-          <input type="text" class="form-control" id="firstName" placeholder="First Name">
+          <div class="col-sm-2">
+              <label class="control-labeL" for="email">Product:</label>
+              <select [(ngModel)]="taskmapping.productSelected" name="productSelected" (change)="getSelectedProduct()">
+                  <option *ngFor="let branch of productData; let i = index" [value]="i" style="text-align: center"> {{branch.name}}</option>
+                </select>
+          </div>
+          <div class="col-sm-9">
+              <label class="control-label" for="email">Task:</label>
+              <select [(ngModel)]="taskmapping.taskSelected" name="taskSelected" (change)="getSelectedTask()" style="width: 100%;">
+                  <option *ngFor="let branch of branchList; let i = index" [value]="i" style="text-align: center"> {{branch.name}}</option>
+                </select>
+          </div>
+          <div class="col-sm-1">
+              <button class="btn btn-primary" type="button" style="height: 25px;line-height: 0px;margin-bottom: -55px;" (click)="addtoskillset()">Add</button>
+          </div>
+          <table class="table" style="margin-top: 5px;">
+              <thead>
+                  <tr>
+                      <th style="width:20%;">Product Name</th>
+                      <th style="width:75%;">Task Details</th>
+                      <th style="width:5%;"></th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr>
+                      <td style="width:20%;">Hello</td>
+                      <td style="width:75%;">Hello</td>
+                      <td style="width:5%;"><button class="btn btn-primary" type="button" style="height: 25px;line-height: 0px;">Delete</button></td>
+                  </tr>
+              </tbody>
+          </table>
         </div>
-        <div className="col-lg-3">
-          <label>Middle Name</label>
-          <input type="text" class="form-control" id="middleName" placeholder="Middle Name">
-        </div>
-        <div className="col-lg-3">
-          <label>Last Name</label>
-          <input type="text" class="form-control" id="lastName" placeholder="Last Name">
-        </div>
-        <div className="col-lg-3">
-          <label>Nick Name</label>
-          <input type="text" class="form-control" id="nickName" placeholder="Nick Name">
-        </div>
-      </div>
-    </div>
-    <div class="row">
-      <div className="form-group row">
-        <div className="col-lg-3">
-          <label>Guardian Name</label>
-          <input type="text" class="form-control" id="guardianName" placeholder="Guardian Name">
-        </div>
-        <div className="col-lg-3">
-          <label>Phone Number</label>
-          <input type="text" class="form-control" id="phoneNumber" placeholder="Phone Number">
-        </div>
-        <div className="col-lg-3">
-          <label>Email Address</label>
-          <input type="text" class="form-control" id="emailAddress" placeholder="Email Address">
-        </div>
-        <div className="col-lg-3">
-          <label>Address</label>
-          <input type="text" class="form-control" id="address" placeholder="Address">
-        </div>
-      </div>
-    </div>
-    <div class="row">
-      <div className="form-group row">
-        <div className="col-lg-3">
-          <label>State</label>
-          <input type="text" class="form-control" id="state" placeholder="State">
-        </div>
-        <div className="col-lg-3">
-          <label>PinCode</label>
-          <input type="text" class="form-control" id="pinCode" placeholder="PinCode">
-        </div>
-        <div className="col-lg-3">
-          <label>Gender</label>
-          <input type="text" class="form-control" id="gender" placeholder="Gender">
-        </div>
-        <div className="col-lg-3">
-          <label>Date of Birth</label>
-          <input type="text" class="form-control" id="dob" placeholder="Date of Birth">
-        </div>
-      </div>
-    </div>
-    <div class="row">
-      <div className="form-group row">
-        <div className="col-lg-3">
-          <label>Branch Name</label>
-          <input type="text" class="form-control" id="branchName" placeholder="Branch Name">
-        </div>
-        <div className="col-lg-3">
-          <label>Task</label>
-          <input type="text" class="form-control" id="task" placeholder="Task">
-        </div>
-      </div>
-    </div>
-  </form>
 </div>
 
 
