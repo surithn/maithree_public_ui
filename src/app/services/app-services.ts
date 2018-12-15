@@ -44,16 +44,51 @@ export class AppService {
     }
 
     getBranches() {
+    console.log(this.getBaseUrl()+"/branches");
         return this.http.get(this.getBaseUrl()+"/branches").map((response: Response) => {
+        console.log(response);
                 let branches = response;
                 return branches;
         });
+    }
+
+    getSelectedProductDetails(productId : string) {
+            return this.http.get(this.getBaseUrl()+"/admin/getProductDetails?productId="+productId).map((response: Response) => {
+            console.log(response);
+            return response;
+        });
+    }
+
+    addProduct(product:any){
+        console.log(product);
+        return this.http.post(this.getBaseUrl() + "/admin/saveProduct",product)
+                .map((response: Response) => {
+                    let resp = response;
+                    console.log(resp);
+                    return resp;
+            });
+    }
+    editProduct(product:any){
+        console.log(product);
+        return this.http.post(this.getBaseUrl() + "/admin/editProduct",product)
+                .map((response: Response) => {
+                    let resp = response;
+                    console.log(resp);
+                    return resp;
+            });
     }
 
     getTeachersList(branchId: string) {
          return this.http.get(this.getBaseUrl()+"/branches/" +branchId + "/teachers").map((response: Response) => {
                 let teachersList = response;
                 return teachersList;
+        });
+    }
+
+    getProducts(){
+         return this.http.get(this.getBaseUrl()+"/admin/getProducts").map((response: Response) => {
+                let productList = response;
+                return productList;
         });
     }
 
