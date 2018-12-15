@@ -16,6 +16,10 @@ export class AddStudentComponent implements OnInit {
   branchList=[]
   private productData;
   private states; 
+  private taskmapping={
+    productSelected:{},
+    taskSelected:{}
+  };
 
   ngOnInit() {
     this.getBranchList();
@@ -220,8 +224,14 @@ export class AddStudentComponent implements OnInit {
       })
   }
 
-  getSelectedBranch(){
-    //console.log(this.branchList[this.branchSelect])
+  getSelectedTask(data){
+    console.log("check for value", data);
+    console.log("taskmapping", this.taskmapping);
+  }
+
+  addtoskillset(data){
+    console.log("check for value", data);
+    console.log("taskmapping", this.taskmapping);
   }
 
 }
