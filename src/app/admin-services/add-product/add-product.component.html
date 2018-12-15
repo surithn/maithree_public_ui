@@ -51,18 +51,6 @@
     <div>
       <form>
         <div class="form-group row">
-          <div class="col-lg-3">
-            <label>Select Branch</label>
-              <select [(ngModel)]="branchSelect" name="branchSelect" (change)="getSelectedBranch()">
-                <option *ngFor="let branch of branchList; let i = index" [value]="i"> {{branch.name}}</option>
-              </select>
-            <div>
-                <label>Selected branches : </label>
-                <div *ngFor="let branch of this.productRequest.branchDetails; let i = index">
-                  {{branch.branchName}}
-                </div> 
-            </div>
-          </div>
 
           <div class="col-lg-4">
             <label>Product Name</label>
@@ -83,6 +71,19 @@
             id="productRequestproductDescription"
             [(ngModel)]="productRequest.productDescription">
           </div>
+
+          <div class="col-lg-3">
+            <label>Select Branch</label>
+              <select [(ngModel)]="branchSelect" name="branchSelect" (change)="getSelectedBranch()">
+                <option *ngFor="let branch of branchList; let i = index" [value]="i"> {{branch.name}}</option>
+              </select>
+            <div>
+                <label>Selected branches : </label>
+                <div *ngFor="let branch of this.productRequest.branchDetails; let i = index">
+                  {{branch.name}}
+                </div> 
+            </div>
+          </div>
         </div>
       </form>
     </div>
@@ -100,10 +101,10 @@
         <tbody>
           <tr *ngFor="let field of productRequest.tasks; let i = index">
             <td>
-              <input [(ngModel)]="field.taskName" class="form-control" type="text" name="{{field.taskName}}" />
+              <input [(ngModel)]="field.name" class="form-control" type="text" name="{{field.name}}" />
             </td>
             <td>
-              <input [(ngModel)]="field.taskDescription" class="form-control" type="text" name="{{field.taskDescription}}" />
+              <input [(ngModel)]="field.description" class="form-control" type="text" name="{{field.description}}" />
             </td>
             <td width="150px">
               <button class="glyphicon glyphicon-remove btn btn-default"  type="button" (click)="deleteFieldValue(i)">Delete</button>
@@ -111,10 +112,10 @@
           </tr>
           <tr>
             <td>
-              <input class="form-control" type="text" id="newAttributeTaskName" [(ngModel)]="newAttribute.taskName" name="newAttributeTaskName" />
+              <input class="form-control" type="text" id="newAttributeTaskName" [(ngModel)]="newAttribute.name" name="newAttributeTaskName" />
             </td>
             <td>
-              <input class="form-control" type="text" id="newAttributeTaskDesc" [(ngModel)]="newAttribute.taskDescription" name="newAttributeTaskDesc" />
+              <input class="form-control" type="text" id="newAttributeTaskDesc" [(ngModel)]="newAttribute.description" name="newAttributeTaskDesc" />
             </td>
             <td width="150px">
               <button class=" btn btn-default" type="button" (click)="addFieldValue()">Add</button>
@@ -125,7 +126,7 @@
 
       <button type="button" 
         class="btn btn-info" 
-        (click)="submitProduct()"
+        (click)="submitProduct(false)"
         style="background-color: #16A085; float:right; margin-right:20px">
         Submit
       </button>
@@ -138,21 +139,22 @@
     <div>
       <form>
         <div class="form-group row">
-          <div class="col-lg-3">
-            <label>Select Branch</label>
-            <select [(ngModel)]="branchSelect" name="branchSelect" (change)="getSelectedBranch()">
-              <option *ngFor="let branch of branchList; let i = index" [value]="i"> {{branch.name}}</option>
-            </select>
-          </div>
 
           <div class="col-lg-4">
             <label>Product Name</label>
-            <select [(ngModel)]="productSelect" name="productSelect" (change)="getSelectedProduct()">
+            <select [(ngModel)]="productSelect" name="productSelect" (change)="getSelectedProductDetails()">
               <option *ngFor="let product of productList; let i = index" [value]="i"> {{product.name}}</option>
             </select>
           </div>
 
-          <div class="col-lg-4">
+          <!-- <div class="col-lg-4">
+            <label>Select Branch</label>
+              <select [(ngModel)]="branchSelect" name="branchSelect" (change)="getSelectedBranch()">
+                <option *ngFor="let branch of updateBranchList; let i = index" [value]="i"> {{branch.name}}</option>
+              </select>
+          </div> -->
+
+          <!-- <div class="col-lg-4">
             <label>Product Description</label>
             <input type="text" 
             class="form-control" 
@@ -160,6 +162,18 @@
             name="productRequestproductDescription" 
             id="productRequestproductDescription"
             [(ngModel)]="productRequest.productDescription">
+          </div> -->
+          <div class="col-lg-3">
+            <label>Add New Branch</label>
+              <select [(ngModel)]="branchSelect" name="branchSelect" (change)="getSelectedBranch()">
+                <option *ngFor="let branch of branchList; let i = index" [value]="i"> {{branch.name}}</option>
+              </select>
+            <div>
+                <label>Selected branches : </label>
+                <div *ngFor="let branch of this.productRequest.branchDetails; let i = index">
+                  {{branch.name}}
+                </div> 
+            </div>
           </div>
         </div>
       </form>
@@ -178,10 +192,10 @@
         <tbody>
           <tr *ngFor="let field of productRequest.tasks; let i = index">
             <td>
-              <input [(ngModel)]="field.taskName" class="form-control" type="text" name="{{field.taskName}}" />
+              <input [(ngModel)]="field.name" class="form-control" type="text" name="{{field.name}}" />
             </td>
             <td>
-              <input [(ngModel)]="field.taskDescription" class="form-control" type="text" name="{{field.taskDescription}}" />
+              <input [(ngModel)]="field.description" class="form-control" type="text" name="{{field.description}}" />
             </td>
             <td width="150px">
               <button class="glyphicon glyphicon-remove btn btn-default"  type="button" (click)="deleteFieldValue(i)">Delete</button>
@@ -189,10 +203,10 @@
           </tr>
           <tr>
             <td>
-              <input class="form-control" type="text" id="newAttributeTaskName" [(ngModel)]="newAttribute.taskName" name="newAttributeTaskName" />
+              <input class="form-control" type="text" id="newAttributeTaskName" [(ngModel)]="newAttribute.name" name="newAttributeTaskName" />
             </td>
             <td>
-              <input class="form-control" type="text" id="newAttributeTaskDesc" [(ngModel)]="newAttribute.taskDescription" name="newAttributeTaskDesc" />
+              <input class="form-control" type="text" id="newAttributeTaskDesc" [(ngModel)]="newAttribute.description" name="newAttributeTaskDesc" />
             </td>
             <td width="150px">
               <button class=" btn btn-default" type="button" (click)="addFieldValue()">Add</button>
@@ -203,7 +217,7 @@
 
       <button type="button" 
         class="btn btn-info" 
-        (click)="submitProduct()"
+        (click)="submitProduct(true)"
         style="background-color: #16A085; float:right; margin-right:20px">
         Submit
       </button>
