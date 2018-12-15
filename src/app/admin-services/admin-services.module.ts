@@ -7,7 +7,6 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { FormsModule, ReactiveFormsModule }   from '@angular/forms';
 import { AddBranchComponent } from './add-branch/add-branch.component';
 import { AddProductComponent } from './add-product/add-product.component';
-import { AddStudentComponent } from './add-student/add-student.component';
 
 
 @NgModule({
@@ -16,6 +15,6 @@ import { AddStudentComponent } from './add-student/add-student.component';
     AdminServicesRoutingModule,
     FormsModule, ReactiveFormsModule
   ],
-  declarations: [AdminServicesComponent, TargetConfigurationComponent, DashboardComponent, AddBranchComponent, AddProductComponent, AddStudentComponent]
+  declarations: [AdminServicesComponent, TargetConfigurationComponent, DashboardComponent, AddBranchComponent, AddProductComponent]
 })
 export class AdminServicesModule { }
