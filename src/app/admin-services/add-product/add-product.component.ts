@@ -23,7 +23,7 @@ export class AddProductComponent implements OnInit {
     branchDetails:[]
   }
 
-  branchList = [
+ /* branchList = [
     {
         "id": 1001,
         "name": "WEST MAMBALAM",
@@ -91,7 +91,8 @@ export class AddProductComponent implements OnInit {
         "active": "Y"
     }
   ]
-
+*/
+  branchList=[]
   productList=[
     {
         "id": 13,
@@ -112,14 +113,20 @@ export class AddProductComponent implements OnInit {
 
   ngOnInit() {
     this.getBranchList();
-    this.dropdownBranchList=this.branchList;
+    //this.dropdownBranchList=this.branchList;
+    
   }
 
   getBranchList(){
   	this.service.getBranches().subscribe((branches:any) =>  {
-  		this.branches = branches;
+  		this.branchList = branches;
   	})
-    console.log("Braches",this.branches)
+  }
+
+  addProducts(){
+  this.service.addProduct(this.productRequest).subscribe((resp:any) =>  {
+      console.log(resp);
+    })
   }
 
   getProductsByBranch(id: string) {
@@ -141,6 +148,7 @@ export class AddProductComponent implements OnInit {
 
   submitProduct(){
     console.log("Inside submit product",this.productRequest)
+    this.addProducts();
   }
 
   showAddProduct(){

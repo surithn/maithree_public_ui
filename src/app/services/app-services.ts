@@ -44,10 +44,21 @@ export class AppService {
     }
 
     getBranches() {
+    console.log(this.getBaseUrl()+"/branches");
         return this.http.get(this.getBaseUrl()+"/branches").map((response: Response) => {
+        console.log(response);
                 let branches = response;
                 return branches;
         });
+    }
+    addProduct(product:any){
+        console.log(product);
+        return this.http.post(this.getBaseUrl() + "/admin/saveProduct",product)
+                .map((response: Response) => {
+                    let resp = response;
+                    console.log(resp);
+                    return resp;
+            });
     }
 
     getTeachersList(branchId: string) {
