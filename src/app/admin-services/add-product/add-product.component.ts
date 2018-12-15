@@ -24,6 +24,8 @@ export class AddProductComponent implements OnInit {
     branchDetails:[]
   }
 
+  productSelect=""
+
   branchList=[]
   updateBranchList=[]
   productList=[]
@@ -51,6 +53,7 @@ export class AddProductComponent implements OnInit {
       console.log(resp);
     })
   }
+  
   editProducts(){
   this.service.editProduct(this.productRequest).subscribe((resp:any) =>  {
       console.log(resp);

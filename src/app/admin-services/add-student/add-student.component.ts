@@ -12,16 +12,23 @@ export class AddStudentComponent implements OnInit {
 
   branches=[];
   selectedBranch="";
-  
+
+  branchList=[]
 
   ngOnInit() {
-  	this.getBranchList()
+    this.getBranchList();
+    
   }
 
   getBranchList(){
-  	this.service.getBranches().subscribe((branches:any) =>  {
-  		this.branches = branches;
-  	})
+    console.log("Branch in student")
+      this.service.getBranches().subscribe((branches:any) =>  {
+        this.branchList = branches;
+      })
+  }
+
+  getSelectedBranch(){
+    //console.log(this.branchList[this.branchSelect])
   }
 
 }
