@@ -8,6 +8,7 @@ import { TargetConfigurationComponent } from './target-configuration/target-conf
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AddBranchComponent } from './add-branch/add-branch.component';
 import { AddProductComponent } from './add-product/add-product.component';
+import { AddStudentComponent } from './add-student/add-student.component';
 
 export const routes: Routes = [
         { path: 'admin-dashboard', component: AdminServicesComponent, 
@@ -16,7 +17,8 @@ export const routes: Routes = [
         	 { path: 'home', component: DashboardComponent},
         	 { path: 'target-configuration', component: TargetConfigurationComponent},
            { path: 'add-branch', component: AddBranchComponent},
-           { path: 'add-product', component: AddProductComponent}
+           { path: 'add-product', component: AddProductComponent},
+           { path: 'add-student', component: AddStudentComponent}
         ]},
   		
 ];
