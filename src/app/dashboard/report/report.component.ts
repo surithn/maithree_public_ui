@@ -21,6 +21,7 @@ export class ReportComponent implements OnInit {
   switchTabs = false;
   branches=[];
   selectedBranch="0101";
+  private overallData=[];
 
   constructor(private reportService: ReportService, private service: AppService) { }
   groupBranch:any;
@@ -34,9 +35,10 @@ export class ReportComponent implements OnInit {
   searchByProduct = ''
 
   tabs={
-    "tab1" : true,
+    "tab1" : false,
     "tab2" : false,
-    "tab3" : false
+    "tab3" : false,
+    "tab4" : true
   }
 
 
@@ -46,6 +48,28 @@ export class ReportComponent implements OnInit {
     this.getInventryInfoBasedOnBranch();
     this.getBranches();
 
+    this.overallData = [
+      {
+        "name" : "Branches",
+        "value" : "branches",
+        "count" : 7
+      },
+      {
+        "name" : "Staffs",
+        "value" : "staffs",
+        "count" : 7
+      },
+      {
+        "name" : "Students",
+        "value" : "students",
+        "count" : 300
+      },
+      {
+        "name" : "Products",
+        "value" : "Products",
+        "count" : 40
+      }
+    ]
   }
 
   getInventries() {
