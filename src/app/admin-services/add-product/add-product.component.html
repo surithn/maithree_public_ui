@@ -131,6 +131,11 @@
         Submit
       </button>
 
+      <div class="row" *ngIf = "addSuccessMessage">
+        <div class="col-lg-12">
+          <h4 class="text-center" style="margin: auto 0">Product Added Successfully.</h4>
+        </div>  
+      </div>
     </div>
     </div>
   </div>
@@ -221,6 +226,12 @@
         style="background-color: #16A085; float:right; margin-right:20px">
         Submit
       </button>
+
+      <div class="row" *ngIf = "updateSuccessMessage">
+        <div class="col-lg-12">
+          <h4 class="text-center" style="margin: auto 0">Product Details Updated Successfully.</h4>
+        </div>  
+      </div>
 
     </div>
     </div>
