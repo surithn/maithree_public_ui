@@ -20,6 +20,10 @@ export class StudentsComponent implements OnInit {
   // private selectedTeacher ="-1";
   private selectedStudent;
   private selectedProduct;
+  // private successMessage=false;
+  // private responseMessage="Task updated successfully";
+  // private showMessage=false;
+  
   
   form: FormGroup;
   private studentsData; 
@@ -91,13 +95,13 @@ export class StudentsComponent implements OnInit {
     saveTasks(){
       var reqBody={
         "branchid": this.branchId,
-        "studentid": this.selectedStudent,
-        "productid": this.selectedProduct,
-        "tasks": []
+        "studentId": this.selectedStudent,
+        "productId": this.selectedProduct,
+        "task": []
       }
       this.tasksData.forEach(task => {
         if(task.assigned)
-        reqBody['tasks'].push(
+        reqBody['task'].push(
           {
             "id": task.taskId,
             "name": task.taskName,
