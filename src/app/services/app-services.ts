@@ -60,22 +60,32 @@ export class AppService {
     }
 
     addProduct(product:any){
-        console.log(product);
-        return this.http.post(this.getBaseUrl() + "/admin/saveProduct",product)
-                .map((response: Response) => {
-                    let resp = response;
-                    console.log(resp);
-                    return resp;
-            });
+      console.log(product);
+      return this.http.post(this.getBaseUrl() + "/admin/saveProduct",product)
+              .map((response: Response) => {
+                  let resp = response;
+                  console.log(resp);
+                  return resp;
+          });
     }
     editProduct(product:any){
-        console.log(product);
-        return this.http.post(this.getBaseUrl() + "/admin/editProduct",product)
-                .map((response: Response) => {
-                    let resp = response;
-                    console.log(resp);
-                    return resp;
-            });
+      console.log(product);
+      return this.http.post(this.getBaseUrl() + "/admin/editProduct",product)
+              .map((response: Response) => {
+                  let resp = response;
+                  console.log(resp);
+                  return resp;
+          });
+    }
+
+    addStudent(student:any){
+      console.log(student);
+      return this.http.post(this.getBaseUrl() + "/admin/addStudent",student)
+              .map((response: Response) => {
+                  let resp = response;
+                  console.log(resp);
+                  return resp;
+          });
     }
 
     getTeachersList(branchId: string) {
@@ -122,6 +132,15 @@ export class AppService {
          return this.http.get(this.getBaseUrl()+"/admin/getProducts").map((response: Response) => {
                 let productList = response;
                 return productList;
+        });
+    }
+
+
+    //get product and task level details for selected branch in Student page.
+    getProductsDetailsForBranch(branchId: string){
+         return this.http.get(this.getBaseUrl()+"/admin/getAllProductDetails?branchId="+branchId).map((response: Response) => {
+                let productDetails = response;
+                return productDetails;
         });
     }
 
