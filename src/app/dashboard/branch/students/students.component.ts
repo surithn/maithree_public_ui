@@ -22,183 +22,102 @@ export class StudentsComponent implements OnInit {
   private selectedProduct;
   
   form: FormGroup;
-  private studentsData={};
-
+  private studentsData; 
+  private productsData;
+  private tasksData; 
   ngOnInit() {
     console.log(this.selectedStudent);
   	this.activeRoute.params.subscribe(params => {
-  			this.branchId = params['id'];
-  			this.getTeachersList(this.branchId);
-      });
+      this.branchId = params['id'];
+      this.getStudentList(this.branchId);
+    });
       
-      this.form = this.formBuilder.group({
-        teacher: [null, Validators.required],
-      });
-
-      this.studentsData = {
-        "students": 
-            [
-              {
-                "name": "Student1",
-                "id": "100",
-                "products": 
-                    [
-                        {
-                        "id": "1",
-                        "name": "Product1",
-                        "tasks": 
-                            [
-                                {
-                                "id": "1",
-                                "name": "task1",
-                                "description": "description",
-                                "target": 0,
-                                "completed": 0,
-                                "assigned": false
-                                },
-                                {
-                                "id": "3",
-                                "name": "task2",
-                                "description": "description",
-                                "target": 0,
-                                "completed": 0,
-                                "assigned": false
-                                }
-                            ]
-                        },
-                        {
-                        "id": "id",
-                        "name": "product2",
-                        "tasks": 
-                            [
-                                {
-                                "id": "4",
-                                "name": "task1",
-                                "description": "description",
-                                "target": 0,
-                                "completed": 0,
-                                "assigned": false
-                                },
-                                {
-                                "id": "5",
-                                "name": "task2",
-                                "description": "description",
-                                "target": 0,
-                                "completed": 0,
-                                "assigned": false
-                                }
-                            ]
-                        }
-                    ]
-                },
-                {
-                  "name": "student2",
-                  "id": "200",
-                  "products": 
-                      [
-                          {
-                          "id": "3",
-                          "name": "product3",
-                          "tasks": 
-                              [
-                                  {
-                                  "id": "1",
-                                  "name": "task1",
-                                  "description": "description",
-                                  "target": 0,
-                                  "completed": 0,
-                                  "assigned": false
-                                  },
-                                  {
-                                  "id": "2",
-                                  "name": "task2",
-                                  "description": "description",
-                                  "target": 0,
-                                  "completed": 0,
-                                  "assigned": false
-                                  }
-                              ]
-                          },
-                          {
-                          "id": "4",
-                          "name": "product4",
-                          "tasks": 
-                              [
-                                  {
-                                  "id": "5",
-                                  "name": "task5",
-                                  "description": "description",
-                                  "target": 0,
-                                  "completed": 0,
-                                  "assigned": false
-                                  },
-                                  {
-                                  "id": "6",
-                                  "name": "task6",
-                                  "description": "description",
-                                  "target": 0,
-                                  "completed": 0,
-                                  "assigned": false
-                                  }
-                              ]
-                          }
-                      ]
-                  }
-            ]
-        };
-      }
+    this.form = this.formBuilder.group({
+      teacher: [null, Validators.required],
+    });
+  }
 
 
   	getTeachersList(id: string) {
   		this.service.getTeachersList(id).subscribe((teachersList:any)=> {
   			this.teachersList = teachersList;
   		})
-  	}
-
-    // saveTecherInfo() {
-    //     this.service.setDataInBrowser(this.selectedTeacher,'selectedTeacher');
-    //     this.service.setDataInBrowser(this.branchId,'selectedBranch');
-    //     this.router.navigateByUrl('/dashboard/branch/students')
-    // }
-
+    }
     
-    getProducts(studentId){
-      this.selectedProduct=null;
-      this.selectedStudent=studentId;
+    getStudentList(id: string) {
+  		this.service.getStudentList(id).subscribe((studentList:any)=> {
+  			this.studentsData = studentList;
+  		})
+    }
+    
+    getProductList(id: string) {
+      var request = {"studentId" : id};
+  		this.service.getProductsForStudent(this.branchId, request).subscribe((productList:any)=> {
+  			this.productsData = productList;
+  		})
     }
 
-    getTasks(taskId){
+    getTaskList(studentid: string, productid: string) {
+      var request = 
+      {
+        "studentId" : studentid,
+        "productId" : productid
+      };
+  		this.service.getTasksForProduct(this.branchId, request).subscribe((taskList:any)=> {
+  			this.tasksData = taskList;
+  		})
+  	}
+    
+    getProducts(data){
+      console.log("check for data", data);
       this.selectedProduct=null;
-      this.selectedProduct=taskId;
+      if(data.studentId != null && data.studentId != undefined){
+        this.selectedStudent=data.studentId;
+        this.getProductList(data.studentId);
+      }
+    }
+
+    getTasks(data){
+      console.log("product", data);
+      this.selectedProduct=null;
+      if(data.productId != null && data.productId != undefined){
+        this.selectedProduct=data.productId;
+        this.getTaskList(this.selectedStudent,this.selectedProduct);
+      }
     }
     submitSave(){
-      console.log(this.selectedStudent);
-      console.log(this.selectedProduct);
-      
+      this.saveTasks();
+    }
+    saveTasks(){
       var reqBody={
         "branchid": this.branchId,
-        "studentid": this.studentsData['students'][this.selectedStudent].id,
-        "productid": this.studentsData['students'][this.selectedStudent].products[this.selectedProduct].id,
-        "tasks": [
-        ]
+        "studentid": this.selectedStudent,
+        "productid": this.selectedProduct,
+        "tasks": []
       }
-      this.studentsData['students'][this.selectedStudent].products[this.selectedProduct]['tasks'].forEach(task => {
+      this.tasksData.forEach(task => {
         if(task.assigned)
         reqBody['tasks'].push(
           {
-            "id": task.id,
-            "name": task.name,
+            "id": task.taskId,
+            "name": task.taskName,
             "assigned": task.assigned,
             "target": task.target,
             "completed": task.completed
           }
         );
       });
-      console.log(reqBody);
+  		this.service.saveTasks(this.branchId, reqBody).subscribe((productList:any)=> {
+  			this.productsData = productList;
+      })
+      this.selectedStudent=null;
+      this.selectedProduct=null;
+      this.getStudentList(this.branchId);
     }
     cancel(){
       this.selectedStudent=null;
       this.selectedProduct=null;
+      this.getStudentList(this.branchId);
     }
 
 }

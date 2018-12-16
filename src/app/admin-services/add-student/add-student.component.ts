@@ -22,7 +22,7 @@ export class AddStudentComponent implements OnInit {
 
   branchSelect="";
   stateSelect="";
-  states="";
+  states=[];
   taskmapping={
     productSelected:{},
     taskSelected:{}
@@ -228,13 +228,13 @@ export class AddStudentComponent implements OnInit {
         tempMap['productName']=product.name;
         tempMap['productId']=product.id;
       }
-    }
+    })
     this.taskList.forEach(function(task){
       if(task.id == that.taskmapping.taskSelected){
         tempMap['taskName']=task.name;
         tempMap['taskId']=task.id;
       }
-    }
+    })
     this.studentRequest.tasks.push(tempMap);
   }
 

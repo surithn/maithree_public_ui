@@ -22,9 +22,9 @@ export class AddProductComponent implements OnInit {
     productId:"",
     productName:"",
     productDescription:"",
-    tasks:[
-    ],
-    branchDetails:[]
+    tasks:[],
+    branchDetails:[],
+    isActivity: ""
   }
 
   productSelect=""
@@ -135,6 +135,12 @@ export class AddProductComponent implements OnInit {
     //this.updateBranchList=productDetails.branches;
     this.productRequest.branchDetails=productDetails.branches;
     this.productRequest.tasks=productDetails.tasks;
+    // console.log(this.productList[this.productSelect].productName);
+    // console.log(this.productList[this.productSelect].productDescription);
+    // console.log(this.productList[this.productSelect].isActivity);
+    // this.productRequest.productName = this.productList[this.productSelect].productName;
+    // this.productRequest.productDescription = this.productList[this.productSelect].productDescription;
+    this.productRequest.isActivity = this.productList[this.productSelect].isActivity;
       console.log("productDetails",productDetails.branches);
     })
   }
