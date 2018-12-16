@@ -83,15 +83,12 @@ export class AddProductComponent implements OnInit {
       this.productRequest.productId = this.productList[this.productSelect].id;
       console.log("Inside submit product",this.productRequest);
       this.editProducts();
-    
     }
     else
     {
       console.log("Inside submit product",this.productRequest);
     this.addProducts();
     }
-    
-    
   }
 
   showAddProduct(){
