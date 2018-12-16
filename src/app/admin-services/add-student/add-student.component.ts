@@ -13,13 +13,17 @@ export class AddStudentComponent implements OnInit {
   branches=[];
   selectedBranch="";
 
+  displayMessage = false;
+  addSuccessMessage = false;
+  responseMessage = "";
+
   branchList=[];
   productList=[];
   taskList =[];
 
   branchSelect="";
   stateSelect="";
-  states="";
+  states=[];
   taskmapping={
     productSelected:{},
     taskSelected:{}
@@ -225,13 +229,13 @@ export class AddStudentComponent implements OnInit {
         tempMap['productName']=product.name;
         tempMap['productId']=product.id;
       }
-    }
+    })
     this.taskList.forEach(function(task){
       if(task.id == that.taskmapping.taskSelected){
         tempMap['taskName']=task.name;
         tempMap['taskId']=task.id;
       }
-    }
+    })
     this.studentRequest.tasks.push(tempMap);
   }
 
@@ -282,8 +286,16 @@ export class AddStudentComponent implements OnInit {
   }
 
   submitStudent(){
+    var that = this;
     this.service.addStudent(this.studentRequest).subscribe((resp:any) =>  {
-      console.log(resp);
+      that.displayMessage = true;
+      that.addSuccessMessage = resp.status;
+      if(resp.status){
+        that.responseMessage = "Student Added Successfully";
+      } else {
+        that.responseMessage = "Please enter valid details to add student";
+      }
+      console.log(resp,that.addSuccessMessage);
     })
   }
 }

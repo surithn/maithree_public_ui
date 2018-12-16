@@ -11,16 +11,20 @@ export class UrlService {
 		baseImageUrl		: "/server",
 		localBaseUrl 		: "http://localhost:5555/server/api/v1",
 		localBaseImageUrl	: "http://localhost:5555/server",
+		klocalBaseUrl 		: "http://10.239.68.124:5555/server/api/v1",
+		klocalBaseImageUrl	: "http://10.239.68.124:5555/server",
+		jlocalBaseUrl 		: "http://10.239.62.242:5555/server/api/v1",
+		jlocalBaseImageUrl	: "http://10.239.62.242:5555/server",
 		devBaseUrl			: "",
 		devBaseImageUrl		: ""
 	}
 
 	getBaseUrl() {
-		return this.urlList['localBaseUrl'];
+		return this.urlList['klocalBaseUrl'];
 	}
 
 	getBaseUrlForImages(){
-		return this.urlList['localBaseImageUrl'];
+		return this.urlList['klocalBaseImageUrl'];
 	}
 
 

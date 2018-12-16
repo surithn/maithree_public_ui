@@ -1,58 +1,16 @@
-<!-- <div class="container">
-  <div class="row">
-    <div class="alert alert-light" role="alert">
-      Add Product
-    </div>
-  </div>
-  
-  <div class="row">
-    <div class="col-md-12 ">
-      <div class="form-group">
-        <select class="form-control" id="exampleFormControlSelect2" [(ngModel)]="selectedBranch" 
-        (change)="getProductsByBranch(selectedBranch)">
-           <option>choose one</option>
-          <option *ngFor="let b of branches" value="{{b.id}}">{{b.name}}</option>
-        </select> 
-      </div>
-    </div>
-  </div>
-
-
-  <div class="row">
-  	<div class="card bg-warning  ml-2 mb-2" style="width: 12rem;" *ngFor="let p of productsByBranch">
-		  <div class="card-body">
-		    <small>{{p.name}}</small>
-		  </div>
-		</div>
-  </div>
-
-  <div class="row" [hidden]="selectedBranch==''">
-  	<form>
-	  <div class="form-group">
-	    <label for="exampleInputEmail1">Product Name</label>
-	    <input type="text" class="form-control" id="product" placeholder="Product Name">
-	  </div>
-	  <button type="submit" class="btn btn-success">Submit</button>
-	</form>
-  </div>
-</div> -->
-
-
 <div class="container">
 
-  <div class="alert alert-light" role="alert">
-    <div class="tab">
-      <button class="tablinks" (click)="showAddProduct()">Add Product</button>
-      <button class="tablinks" (click)="showUpdateProduct()">Update Product</button>
-    </div>
+  <div class="tab">
+    <button class="tablinks btn btn-default" (click)="showAddProduct()">Add Product</button>
+    <button class="tablinks btn btn-default" (click)="showUpdateProduct()">Update Product</button>
   </div>
 
-  <div class="row" id="Add Product" class="tabcontent" *ngIf = "addProduct">
+  <div class="row" id="Add Product" class="tabcontent" *ngIf ="addProduct">
     <div>
       <form>
         <div class="form-group row">
 
-          <div class="col-lg-4">
+          <div class="col-lg-5">
             <label>Product Name</label>
             <input type="text" 
             class="form-control" 
@@ -62,7 +20,7 @@
             [(ngModel)]="productRequest.productName">
           </div>
 
-          <div class="col-lg-4">
+          <div class="col-lg-5">
             <label>Product Description</label>
             <input type="text" 
             class="form-control" 
@@ -72,13 +30,19 @@
             [(ngModel)]="productRequest.productDescription">
           </div>
 
-          <div class="col-lg-3">
+          <div class="col-lg-2" style="text-align: center;margin-top: 30px;">
+            <label class="checkbox-inline">
+              <input type="checkbox" [(ngModel)]="productRequest.isActivity" name="isActivity" style="margin-right: 10px;">Activity
+            </label>
+          </div>
+
+          <div class="col-lg-6" style="margin-top: 15px;">
             <label>Select Branch</label>
               <select [(ngModel)]="branchSelect" name="branchSelect" (change)="getSelectedBranch()">
                 <option *ngFor="let branch of branchList; let i = index" [value]="i"> {{branch.name}}</option>
               </select>
             <div>
-                <label>Selected branches : </label>
+                <label>Selected : </label>
                 <div *ngFor="let branch of this.productRequest.branchDetails; let i = index">
                   {{branch.name}}
                 </div> 
@@ -131,6 +95,11 @@
         Submit
       </button>
 
+      <div class="row" *ngIf = "addSuccessMessage">
+        <div class="col-lg-12">
+          <h4 class="text-center" style="margin: auto 0" [style.color]="addSuccessMessage==true?'Green':'Red'">{{responseMessage}}</h4>
+        </div>  
+      </div>
     </div>
     </div>
   </div>
@@ -146,23 +115,24 @@
               <option *ngFor="let product of productList; let i = index" [value]="i"> {{product.name}}</option>
             </select>
           </div>
-
-          <!-- <div class="col-lg-4">
-            <label>Select Branch</label>
-              <select [(ngModel)]="branchSelect" name="branchSelect" (change)="getSelectedBranch()">
-                <option *ngFor="let branch of updateBranchList; let i = index" [value]="i"> {{branch.name}}</option>
-              </select>
-          </div> -->
-
-          <!-- <div class="col-lg-4">
-            <label>Product Description</label>
-            <input type="text" 
-            class="form-control" 
-            placeholder="Product Description"
-            name="productRequestproductDescription" 
-            id="productRequestproductDescription"
-            [(ngModel)]="productRequest.productDescription">
-          </div> -->
+          <!-- <div class="col-lg-5">
+              <label>Product Name</label>
+              <input type="text" 
+              class="form-control" 
+              placeholder="Product Name"
+              name="productRequestproductName" 
+              id="productRequestproductName"
+              [(ngModel)]="productRequest.productName">
+            </div>
+            <div class="col-lg-5">
+                <label>Product Description</label>
+                <input type="text" 
+                class="form-control" 
+                placeholder="Product Description"
+                name="productRequestproductDescription" 
+                id="productRequestproductDescription"
+                [(ngModel)]="productRequest.productDescription">
+              </div> -->
           <div class="col-lg-3">
             <label>Add New Branch</label>
               <select [(ngModel)]="branchSelect" name="branchSelect" (change)="getSelectedBranch()">
@@ -175,6 +145,11 @@
                 </div> 
             </div>
           </div>
+          <div class="col-lg-2" style="text-align: center;margin-top: 30px;">
+              <label class="checkbox-inline">
+                <input type="checkbox" [(ngModel)]="productRequest.isActivity" name="isActivity" style="margin-right: 10px;">Activity
+              </label>
+            </div>
         </div>
       </form>
     </div>
@@ -221,6 +196,12 @@
         style="background-color: #16A085; float:right; margin-right:20px">
         Submit
       </button>
+
+      <div class="row" *ngIf = "updateSuccessMessage">
+        <div class="col-lg-12">
+          <h4 class="text-center" style="margin: auto 0" [style.color]="updateSuccessMessage==true?'Green':'Red'">{{responseMessage}}</h4>
+        </div>  
+      </div>
 
     </div>
     </div>

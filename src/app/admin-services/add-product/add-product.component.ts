@@ -11,6 +11,9 @@ import * as _ from 'lodash';
 export class AddProductComponent implements OnInit {
   constructor(private service: AppService) { }
 
+  addSuccessMessage = false;
+  responseMessage="";
+  updateSuccessMessage = false;
   branches=[];
   selectedBranch="";
   productsByBranch=[];
@@ -19,9 +22,9 @@ export class AddProductComponent implements OnInit {
     productId:"",
     productName:"",
     productDescription:"",
-    tasks:[
-    ],
-    branchDetails:[]
+    tasks:[],
+    branchDetails:[],
+    isActivity: ""
   }
 
   productSelect=""
@@ -49,13 +52,27 @@ export class AddProductComponent implements OnInit {
   }
 
   addProducts(){
+  var that = this;
   this.service.addProduct(this.productRequest).subscribe((resp:any) =>  {
+      that.addSuccessMessage = resp.status;
+      if(resp.status){
+        that.responseMessage = "Product Added Successfully";
+      } else {
+        that.responseMessage = "Please enter valid details to add product";
+      }
       console.log(resp);
     })
   }
   
   editProducts(){
+  var that = this;
   this.service.editProduct(this.productRequest).subscribe((resp:any) =>  {
+      that.updateSuccessMessage = resp.status;
+      if(resp.status){
+        that.responseMessage = "Product Updated Successfully";
+      } else {
+        that.responseMessage = "Please enter valid details to update product";
+      }
       console.log(resp);
     })
   }
@@ -87,7 +104,7 @@ export class AddProductComponent implements OnInit {
     else
     {
       console.log("Inside submit product",this.productRequest);
-    this.addProducts();
+      this.addProducts();
     }
   }
 
@@ -97,6 +114,8 @@ export class AddProductComponent implements OnInit {
     this.productRequest.branchDetails=[];
     this.addProduct = true;
     this.updateProduct = false;
+    this.addSuccessMessage=false;
+    this.updateSuccessMessage= false;
   }
 
   showUpdateProduct(){
@@ -106,7 +125,9 @@ export class AddProductComponent implements OnInit {
     this.productRequest.tasks=[];
     this.service.getProducts().subscribe((products:any) =>  {
       this.productList = products;
-    })
+    });
+    this.addSuccessMessage=false;
+    this.updateSuccessMessage= false;
   }
 
   getSelectedProductDetails(){
@@ -114,6 +135,12 @@ export class AddProductComponent implements OnInit {
     //this.updateBranchList=productDetails.branches;
     this.productRequest.branchDetails=productDetails.branches;
     this.productRequest.tasks=productDetails.tasks;
+    // console.log(this.productList[this.productSelect].productName);
+    // console.log(this.productList[this.productSelect].productDescription);
+    // console.log(this.productList[this.productSelect].isActivity);
+    // this.productRequest.productName = this.productList[this.productSelect].productName;
+    // this.productRequest.productDescription = this.productList[this.productSelect].productDescription;
+    this.productRequest.isActivity = this.productList[this.productSelect].isActivity;
       console.log("productDetails",productDetails.branches);
     })
   }
