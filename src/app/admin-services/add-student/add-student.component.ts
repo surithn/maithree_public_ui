@@ -293,7 +293,7 @@ export class AddStudentComponent implements OnInit {
       } else {
         that.responseMessage = "Please enter valid details to add student";
       }
-      console.log(resp);
+      console.log(resp,that.addSuccessMessage);
     })
   }
 }
