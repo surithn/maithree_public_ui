@@ -11,6 +11,9 @@ import * as _ from 'lodash';
 export class AddProductComponent implements OnInit {
   constructor(private service: AppService) { }
 
+  addSuccessMessage = false;
+  responseMessage="";
+  updateSuccessMessage = false;
   branches=[];
   selectedBranch="";
   productsByBranch=[];
@@ -49,13 +52,27 @@ export class AddProductComponent implements OnInit {
   }
 
   addProducts(){
+  var that = this;
   this.service.addProduct(this.productRequest).subscribe((resp:any) =>  {
+      that.addSuccessMessage = resp.status;
+      if(resp.status){
+        that.responseMessage = "Product Added Successfully";
+      } else {
+        that.responseMessage = "Please enter valid details to add product";
+      }
       console.log(resp);
     })
   }
   
   editProducts(){
+  var that = this;
   this.service.editProduct(this.productRequest).subscribe((resp:any) =>  {
+      that.updateSuccessMessage = resp.status;
+      if(resp.status){
+        that.responseMessage = "Product Updated Successfully";
+      } else {
+        that.responseMessage = "Please enter valid details to update product";
+      }
       console.log(resp);
     })
   }
@@ -87,7 +104,7 @@ export class AddProductComponent implements OnInit {
     else
     {
       console.log("Inside submit product",this.productRequest);
-    this.addProducts();
+      this.addProducts();
     }
   }
 
@@ -97,6 +114,8 @@ export class AddProductComponent implements OnInit {
     this.productRequest.branchDetails=[];
     this.addProduct = true;
     this.updateProduct = false;
+    this.addSuccessMessage=false;
+    this.updateSuccessMessage= false;
   }
 
   showUpdateProduct(){
@@ -106,8 +125,9 @@ export class AddProductComponent implements OnInit {
     this.productRequest.tasks=[];
     this.service.getProducts().subscribe((products:any) =>  {
       this.productList = products;
-      console.log(this.productList);
-    })
+    });
+    this.addSuccessMessage=false;
+    this.updateSuccessMessage= false;
   }
 
   getSelectedProductDetails(){
