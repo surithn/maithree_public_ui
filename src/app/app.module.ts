@@ -15,6 +15,7 @@ import { HammerGestureConfig, HAMMER_GESTURE_CONFIG } from '@angular/platform-br
 
 import { MatFormFieldModule } from '@angular/material';
 import { MatInputModule } from '@angular/material';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 
 /*Feature modules*/
 
@@ -59,6 +60,7 @@ export class MyHammerConfig extends HammerGestureConfig  {
     FormsModule,
     MatFormFieldModule,
     MatInputModule,
+    MatCheckboxModule,
     AuthenticationModule,
     NgbModule.forRoot(),
     NgDragDropModule.forRoot(),
@@ -66,7 +68,9 @@ export class MyHammerConfig extends HammerGestureConfig  {
     AdminServicesModule,
     AdminLoginModule
   ],
-  
+  exports:[
+    MatCheckboxModule
+  ],
   declarations: [
     AppComponent,
     BreadcrumbComponent
