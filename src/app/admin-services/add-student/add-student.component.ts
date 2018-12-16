@@ -13,66 +13,41 @@ export class AddStudentComponent implements OnInit {
   branches=[];
   selectedBranch="";
 
-  branchList=[]
-  private productData;
-  private branchSelect;
-  private states; 
-  private taskmapping={
+  branchList=[];
+  productList=[];
+  taskList =[];
+
+  branchSelect="";
+  stateSelect="";
+  states="";
+  taskmapping={
     productSelected:{},
     taskSelected:{}
-  };
+  }
+  studentRequest= {
+    "firstName": "",
+    "middleName": "",
+    "lastName": "",
+    "nickName": "",
+    "guardainName": "",
+    "phoneNumber": "",
+    "emailAddress": "",
+    "address": "",
+    "state": "",
+    "pincode": "",
+    "gender": "",
+    "dob": "",
+    "branchId":"",
+    "tasks": [
+    ]
+  }
 
-  productDetails=[]
+  productDetails=[];
 
   ngOnInit() {
     this.getBranchList();
-    this.productData = 
-      [
-        {
-          id:"productid1",
-          name:"productname1",
-          task:[
-            {
-              id:"taskid1",
-              name:"taskid1"
-            },
-            {
-              id:"taskid2",
-              name:"taskid2"
-            }
-          ]
-        },
-        {
-          id:"productid2",
-          name:"productname2",
-          task:[
-            {
-              id:"taskid2",
-              name:"taskid2"
-            },
-            {
-              id:"taskid3",
-              name:"taskid3"
-            }
-          ]
-        },
-        {
-          id:"productid3",
-          name:"productname3",
-          task:[
-            {
-              id:"taskid5",
-              name:"taskid5"
-            },
-            {
-              id:"taskid8",
-              name:"taskid29"
-            }
-          ]
-        },
-      ];
 
-      this.states = [
+    this.states = [
         {
         "key": "AN",
         "name": "Andaman and Nicobar Islands"
@@ -220,6 +195,13 @@ export class AddStudentComponent implements OnInit {
         ]
   }
 
+  private newAttribute: any = {};
+
+  addFieldValue() {
+      this.studentRequest.tasks.push(this.newAttribute);
+      this.newAttribute = {};
+  }
+
   getBranchList(){
     console.log("Branch in student")
       this.service.getBranches().subscribe((branches:any) =>  {
@@ -232,20 +214,76 @@ export class AddStudentComponent implements OnInit {
     console.log("taskmapping", this.taskmapping);
   }
 
-  addtoskillset(data){
-    console.log("check for value", data);
-    console.log("taskmapping", this.taskmapping);
+  addTaskToStudent(){
+    console.log("that.productList",this.productList)
+    console.log("that.taskList",this.taskList)
+    console.log("this.productDetails",this.productDetails)
+    var tempMap={}
+    var that=this;
+    this.productList.forEach(function(product){
+      if(product.id == that.taskmapping.productSelected){
+        tempMap['productName']=product.name;
+        tempMap['productId']=product.id;
+      }
+    }
+    this.taskList.forEach(function(task){
+      if(task.id == that.taskmapping.taskSelected){
+        tempMap['taskName']=task.name;
+        tempMap['taskId']=task.id;
+      }
+    }
+    this.studentRequest.tasks.push(tempMap);
   }
 
   getDetailsForSelectedBranch(){
+    var that = this;
     var branchSelected = this.branchSelect;
     var branchId = this.branchList[branchSelected].id
     var branchName = this.branchList[branchSelected].name
-    console.log("branchSelected",branchSelected, branchId,branchName)
 
     this.service.getProductsDetailsForBranch(branchId).subscribe((products:any) =>  {
       this.productDetails = products;
-      console.log("this.productDetails",this.productDetails)
+
+      that.productList = [];
+      this.productDetails.forEach(function(product){
+        that.productList.push(product) 
+      })
+    })
+
+    this.studentRequest.branchId = this.branchList[branchSelected].id;
+  }
+
+  getTasksForSelectedProduct(product){
+    var that = this;
+    console.log("product",product)
+    that.taskList = [];
+    this.productDetails.forEach(function(productDetail){
+      if(productDetail.id == product){
+        productDetail.tasks.forEach(function(taskDetail){
+          that.taskList.push(taskDetail)
+        })
+      }
+      console.log("that.taskList",that.taskList)
+    })
+  }
+
+  deleteFieldValue(index) {
+    this.studentRequest.tasks.splice(index, 1);
+  }
+
+  getSelectedState(){
+  console.log(this.stateSelect)
+    this.studentRequest.state = this.stateSelect
+  }
+
+  getSelectedGender(event){
+  console.log(event.target.value)
+    this.studentRequest.gender = event.target.value
+  }
+
+  submitStudent(){
+    this.service.addStudent(this.studentRequest).subscribe((resp:any) =>  {
+      console.log(resp);
     })
   }
 }
