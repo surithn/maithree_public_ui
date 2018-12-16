@@ -13,6 +13,9 @@ export class AddStudentComponent implements OnInit {
   branches=[];
   selectedBranch="";
 
+  addSuccessMessage = false;
+  responseMessage = "";
+
   branchList=[];
   productList=[];
   taskList =[];
@@ -282,7 +285,14 @@ export class AddStudentComponent implements OnInit {
   }
 
   submitStudent(){
+    var that = this;
     this.service.addStudent(this.studentRequest).subscribe((resp:any) =>  {
+      that.addSuccessMessage = resp.status;
+      if(resp.status){
+        that.responseMessage = "Student Added Successfully";
+      } else {
+        that.responseMessage = "Please enter valid details to add student";
+      }
       console.log(resp);
     })
   }

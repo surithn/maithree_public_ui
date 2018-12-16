@@ -12,6 +12,7 @@ export class AddProductComponent implements OnInit {
   constructor(private service: AppService) { }
 
   addSuccessMessage = false;
+  responseMessage="";
   updateSuccessMessage = false;
   branches=[];
   selectedBranch="";
@@ -54,8 +55,12 @@ export class AddProductComponent implements OnInit {
   var that = this;
   this.service.addProduct(this.productRequest).subscribe((resp:any) =>  {
       that.addSuccessMessage = resp.status;
+      if(resp.status){
+        that.responseMessage = "Product Added Successfully";
+      } else {
+        that.responseMessage = "Please enter valid details to add product";
+      }
       console.log(resp);
-
     })
   }
   
@@ -63,6 +68,11 @@ export class AddProductComponent implements OnInit {
   var that = this;
   this.service.editProduct(this.productRequest).subscribe((resp:any) =>  {
       that.updateSuccessMessage = resp.status;
+      if(resp.status){
+        that.responseMessage = "Product Updated Successfully";
+      } else {
+        that.responseMessage = "Please enter valid details to update product";
+      }
       console.log(resp);
     })
   }
