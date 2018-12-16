@@ -92,6 +92,15 @@ export class AppService {
         });
     }
 
+
+    //get product and task level details for selected branch in Student page.
+    getProductsDetailsForBranch(branchId: string){
+         return this.http.get(this.getBaseUrl()+"/admin/getAllProductDetails?branchId="+branchId).map((response: Response) => {
+                let productDetails = response;
+                return productDetails;
+        });
+    }
+
     getProductListForBranch(branchId: string) {
          return this.http.get(this.getBaseUrl()+"/branches/"+branchId + "/products").map((response: Response) => {
                 let productList = response;

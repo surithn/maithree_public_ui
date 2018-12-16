@@ -9,7 +9,7 @@
           <form class="form-horizontal">
             <div class="form-group">
               <label class="control-label col-sm-2" for="email">Select Branch:</label>
-              <select [(ngModel)]="branchSelect" name="branchSelect" (change)="getSelectedBranch()">
+              <select [(ngModel)]="branchSelect" name="branchSelect" (change)="getDetailsForSelectedBranch()">
                 <option *ngFor="let branch of branchList; let i = index" [value]="i" style="text-align: center"> {{branch.name}}</option>
               </select>
             </div>

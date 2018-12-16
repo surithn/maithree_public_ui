@@ -15,11 +15,14 @@ export class AddStudentComponent implements OnInit {
 
   branchList=[]
   private productData;
+  private branchSelect;
   private states; 
   private taskmapping={
     productSelected:{},
     taskSelected:{}
   };
+
+  productDetails=[]
 
   ngOnInit() {
     this.getBranchList();
@@ -234,4 +237,15 @@ export class AddStudentComponent implements OnInit {
     console.log("taskmapping", this.taskmapping);
   }
 
+  getDetailsForSelectedBranch(){
+    var branchSelected = this.branchSelect;
+    var branchId = this.branchList[branchSelected].id
+    var branchName = this.branchList[branchSelected].name
+    console.log("branchSelected",branchSelected, branchId,branchName)
+
+    this.service.getProductsDetailsForBranch(branchId).subscribe((products:any) =>  {
+      this.productDetails = products;
+      console.log("this.productDetails",this.productDetails)
+    })
+  }
 }
