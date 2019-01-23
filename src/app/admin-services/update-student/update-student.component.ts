@@ -22,6 +22,7 @@ export class UpdateStudentComponent implements OnInit {
   taskList =[];
 
   branchSelect="";
+  studentSelect="";
   stateSelect="";
   states=[];
   taskmapping={
@@ -47,10 +48,9 @@ export class UpdateStudentComponent implements OnInit {
   }
 
   productDetails=[];
-
+  private studentsData;
   ngOnInit() {
     this.getBranchList();
-
     this.states = [
         {
         "key": "AN",
@@ -242,11 +242,12 @@ export class UpdateStudentComponent implements OnInit {
   getDetailsForSelectedBranch(){
     var that = this;
     var branchSelected = this.branchSelect;
-    var branchId = this.branchList[branchSelected].id
-    var branchName = this.branchList[branchSelected].name
-
+    var branchId = this.branchList[branchSelected].id;
+    this.service.getStudentList(branchId).subscribe((studentList:any)=> {
+      this.studentsData = studentList;
+    });
     this.service.getProductsDetailsForBranch(branchId).subscribe((products:any) =>  {
-      this.productDetails = products;
+      that.productDetails = products;
 
       that.productList = [];
       this.productDetails.forEach(function(product){
@@ -255,6 +256,17 @@ export class UpdateStudentComponent implements OnInit {
     })
 
     this.studentRequest.branchId = this.branchList[branchSelected].id;
+  }
+  getDetailsForSelectedStudent(){
+    var that = this;
+    var studentSelected = this.studentSelect;
+    var studentId = this.studentsData[studentSelected].studentId;
+    console.log("studentId", studentId);
+    this.service.getSelectedStudentDetails(studentId).subscribe((student:any)=> {
+      console.log("student",student);
+      this.studentRequest = student;
+      this.studentRequest.branchId = this.branchList[this.branchSelect].id;
+    })
   }
 
   getTasksForSelectedProduct(product){
@@ -287,7 +299,7 @@ export class UpdateStudentComponent implements OnInit {
 
   submitStudent(){
     var that = this;
-    this.service.addStudent(this.studentRequest).subscribe((resp:any) =>  {
+    this.service.editStudent(this.studentRequest).subscribe((resp:any) =>  {
       that.displayMessage = true;
       that.addSuccessMessage = resp.status;
       if(resp.status){
