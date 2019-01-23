@@ -17,13 +17,30 @@ export class ReportService {
 
 
   getReportBaseUrl(){
-    return this.urlService.getBaseUrl()+"/reports"
+    return this.urlService.getBaseUrl()+"/reports";
   }
-
+  getBaseUrl(){
+    return this.urlService.getBaseUrl();
+  }
+  
   getAllInventoryReport(){
     return this.http.get(this.getReportBaseUrl()+"/inventories/").map((res: any) => {
       let inventries = res;
       return inventries;
+    });
+  }
+
+  getStudentsReport(branchID, studentID){
+    return this.http.get(this.getBaseUrl()+"/branches/"+branchID+"/studentProgress?studentId="+studentID).map((res: any) => {
+      let getStudentReport = res;
+      return getStudentReport;
+    });
+  }
+
+  getSummaryTotal(){
+    return this.http.get(this.getReportBaseUrl()+"/fetchTotalSummary").map((res: any) => {
+      let getSummaryTotal = res;
+      return getSummaryTotal;
     });
   }
 
