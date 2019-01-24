@@ -105,54 +105,38 @@
   </div>
 
   <div class="row" id="Update Product" class="tabcontent" *ngIf = "updateProduct">
-    <div>
-      <form>
-        <div class="form-group row">
-
-          <div class="col-lg-4">
-            <label>Product Name</label>
-            <select [(ngModel)]="productSelect" name="productSelect" (change)="getSelectedProductDetails()">
-              <option *ngFor="let product of productList; let i = index" [value]="i"> {{product.name}}</option>
-            </select>
-          </div>
-          <!-- <div class="col-lg-5">
-              <label>Product Name</label>
-              <input type="text" 
-              class="form-control" 
-              placeholder="Product Name"
-              name="productRequestproductName" 
-              id="productRequestproductName"
-              [(ngModel)]="productRequest.productName">
+      <div>
+          <form>
+            <div class="form-group row" style="margin-top: 15px;">
+    
+              <div class="col-lg-6">
+                <label>Product Name</label>
+                <select [(ngModel)]="productSelect" name="productSelect" (change)="getSelectedProductDetails()">
+                    <option *ngFor="let product of productList; let i = index" [value]="i"> {{product.name}}</option>
+                  </select>
+              </div>
+    
+              <div class="col-lg-2" style="text-align: center;">
+                <label class="checkbox-inline">
+                    <input type="checkbox" [(ngModel)]="productRequest.isActivity" name="isActivity" style="margin-right: 10px;">Activity
+                  </label>
+              </div>
+    
+              <div class="col-lg-6" style="margin-top: 15px;">
+                <label>Select Branch</label>
+                <select [(ngModel)]="branchSelect" name="branchSelect" (change)="getSelectedBranch()">
+                    <option *ngFor="let branch of branchList; let i = index" [value]="i"> {{branch.name}}</option>
+                  </select>
+                <div>
+                    <label>Selected : </label>
+                    <div *ngFor="let branch of this.productRequest.branchDetails; let i = index">
+                      {{branch.name}}
+                    </div> 
+                </div>
+              </div>
             </div>
-            <div class="col-lg-5">
-                <label>Product Description</label>
-                <input type="text" 
-                class="form-control" 
-                placeholder="Product Description"
-                name="productRequestproductDescription" 
-                id="productRequestproductDescription"
-                [(ngModel)]="productRequest.productDescription">
-              </div> -->
-          <div class="col-lg-3">
-            <label>Add New Branch</label>
-              <select [(ngModel)]="branchSelect" name="branchSelect" (change)="getSelectedBranch()">
-                <option *ngFor="let branch of branchList; let i = index" [value]="i"> {{branch.name}}</option>
-              </select>
-            <div>
-                <label>Selected branches : </label>
-                <div *ngFor="let branch of this.productRequest.branchDetails; let i = index">
-                  {{branch.name}}
-                </div> 
-            </div>
-          </div>
-          <div class="col-lg-2" style="text-align: center;margin-top: 30px;">
-              <label class="checkbox-inline">
-                <input type="checkbox" [(ngModel)]="productRequest.isActivity" name="isActivity" style="margin-right: 10px;">Activity
-              </label>
-            </div>
+          </form>
         </div>
-      </form>
-    </div>
 
     <div class="row">
     <div class="col-md-12">

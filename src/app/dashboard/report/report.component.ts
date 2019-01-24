@@ -22,6 +22,9 @@ export class ReportComponent implements OnInit {
   branches=[];
   selectedBranch="0101";
   private overallData=[];
+  private studentReportData;
+  private finalStructuredData;
+  private reportOverallResult;
 
   constructor(private reportService: ReportService, private service: AppService) { }
   groupBranch:any;
@@ -41,42 +44,33 @@ export class ReportComponent implements OnInit {
     "tab4" : true
   }
 
-
-
   ngOnInit() {
     this.getInventries();
     this.getInventryInfoBasedOnBranch();
     this.getBranches();
-
-    this.overallData = [
-      {
-        "name" : "Branches",
-        "value" : "branches",
-        "count" : 7
-      },
-      {
-        "name" : "Staffs",
-        "value" : "staffs",
-        "count" : 7
-      },
-      {
-        "name" : "Students",
-        "value" : "students",
-        "count" : 300
-      },
-      {
-        "name" : "Products",
-        "value" : "Products",
-        "count" : 40
-      }
-    ]
+    
+    this.getStudentsReport();
+    this.getSummaryTotal();
   }
 
-  getInventries() {
-  	this.reportService.getAllInventoryReport().subscribe(data => {
-      this.reportResult = data;
+  getStudentsReport() {
+    
+  	this.reportService.getStudentsReport(1001, 6).subscribe(data => {
+      this.studentReportData = data;
+      this.changeDataStructure();
     })
   }
+    getSummaryTotal() {
+        this.reportService.getSummaryTotal().subscribe(data => {
+        this.overallData = data;
+        })
+    }
+
+  getInventries() {
+        this.reportService.getAllInventoryReport().subscribe(data => {
+        this.reportResult = data;
+    })
+    }
 
   getBranches() {
       this.service.getBranches().subscribe((branches:any) =>  {
@@ -103,6 +97,22 @@ export class ReportComponent implements OnInit {
       this.reportResult = data;
     });
   }
+
+  changeDataStructure(){
+    var ar=[];
+    console.log("Check data", this.studentReportData);
+    this.studentReportData.progressTable.forEach(product => {
+      console.log("check for loop", )
+      product.tasks.forEach(task => {
+        task['productId']=product.productId;
+        task['productName']=product.productName;
+        ar.push(task);
+      });
+      this.finalStructuredData = ar;
+      console.log("studentReportData", ar)
+    });
+  }
+
   downloadReport () {
    const rslt = this.reportResult.map((rs, i) => {
       return {

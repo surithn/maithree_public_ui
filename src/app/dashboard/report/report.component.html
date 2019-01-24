@@ -38,8 +38,23 @@
               </div>
           </div>
           <div class="col-md-12">
-              <img src="../assets/img/reports.jpg" alt="Home" style="width: 100%"/>
-          </div>
+            <table class="table table-striped">
+              <!-- <th>
+                <td>Product</td>
+                <td>Tasks</td>
+                <td>Week1 </br>({{finalStructuredData[0].week1.period}})</td>
+                <td>Week2 </br>({{finalStructuredData[0].week2.period}})</td>
+                <td>Week3 </br>({{finalStructuredData[0].week3.period}})</td> 
+              </th> -->
+              <tr *ngFor="let task of finalStructuredData">
+                <td>{{task.productName}}</td>
+                <td>{{task.taskName}}</td>
+                <td>{{task.week1.completed}} ({{task.week1.target}})</td>
+                <td>{{task.week2.completed}} ({{task.week2.target}})</td>
+                <td>{{task.week3.completed}} ({{task.week3.target}})</td>
+              </tr>
+            </table>
+            </div>
       </div>
   </div>
 

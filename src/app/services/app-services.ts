@@ -53,10 +53,17 @@ export class AppService {
     }
 
     getSelectedProductDetails(productId : string) {
-            return this.http.get(this.getBaseUrl()+"/admin/getProductDetails?productId="+productId).map((response: Response) => {
-            console.log(response);
-            return response;
-        });
+        return this.http.get(this.getBaseUrl()+"/admin/getProductDetails?productId="+productId).map((response: Response) => {
+        console.log(response);
+        return response;
+    });
+    }
+
+    getSelectedStudentDetails(studentId : string) {
+        return this.http.get(this.getBaseUrl()+"/student/"+studentId).map((response: Response) => {
+        console.log(response);
+        return response;
+    });
     }
 
     addProduct(product:any){
@@ -87,6 +94,16 @@ export class AppService {
                   return resp;
           });
     }
+
+    editStudent(student:any){
+        console.log(student);
+        return this.http.post(this.getBaseUrl() + "/admin/editStudent",student)
+                .map((response: Response) => {
+                    let resp = response;
+                    console.log(resp);
+                    return resp;
+            });
+      }
 
     getTeachersList(branchId: string) {
          return this.http.get(this.getBaseUrl()+"/branches/" +branchId + "/teachers").map((response: Response) => {
