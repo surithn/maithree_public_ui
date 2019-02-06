@@ -123,8 +123,9 @@ export class ReportComponent implements OnInit {
     }
 
   getInventries() {
-        this.reportService.getAllInventoryReport().subscribe(data => {
+    this.reportService.getAllTaskReport().subscribe(data => {
         this.reportResult = data;
+        console.log("this.reportResult",this.reportResult);
     })
     }
 
@@ -149,7 +150,7 @@ export class ReportComponent implements OnInit {
   }
 
   search() {
-    this.reportService.getAllInventoryReportByDate(this.fromDate, this.toDate).subscribe(data => {
+    this.reportService.getAllTaskReportByDate(this.fromDate, this.toDate).subscribe(data => {
       this.reportResult = data;
     });
   }
@@ -172,20 +173,19 @@ export class ReportComponent implements OnInit {
   downloadReport () {
    const rslt = this.reportResult.map((rs, i) => {
       return {
-        'Branch' : rs.branch_name,
-        'Product' : rs.product_name,
-        'Quantity' : rs.quantity,
-        'Session' : rs.enter_session,
-        'Submitted By' : rs.entered_by,
-        'Date' : moment(rs.entered_date).format('DD/MM/YYYY hh:mm:ss'),
-        'Comments' : rs.comments || ''
+        'Completed Date' : rs.submittedDate,
+        'Branch' : rs.branchName,
+        'Product' : rs.productId,
+        'Quantity' : rs.productName,
+        'Session' : rs.taskName,
+        'Submitted By' : rs.taskCompleted
       };
     });
     const options = {
       showLabels: true,
       showTitle: true,
       title : 'Maithree Report',
-      headers: ['Branch', 'Product', 'Quantity' , 'Session' , 'Submitted By', 'Date' , 'Comments']
+      headers: ['Completed Date','Branch', 'Product ID', 'Product Name', 'Task Name', 'Quantity']
     };
    const rpt = new Angular5Csv(rslt, 'Maithree Report ' + moment(new Date()).format('DD/MM/YYYY'), options );
   }

@@ -5,14 +5,14 @@
             <a class="nav-link" [ngClass]="tabs.tab4 ? 'activeCustom' : ''" href="javascript:void(0)"
             (click)="switchTab('tab4')">Overall</a>
           </li>
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <a class="nav-link" [ngClass]="tabs.tab1 ? 'activeCustom' : ''" href="javascript:void(0)"
             (click)="switchTab('tab1')">Summary</a>
           </li>
           <li class="nav-item">
              <a class="nav-link" [ngClass]="tabs.tab2 ? 'activeCustom' : ''" href="javascript:void(0)"
              (click)="switchTab('tab2')">Summary(Month)</a>
-          </li>
+          </li> -->
           <li class="nav-item">
              <a class="nav-link" [ngClass]="tabs.tab3 ? 'activeCustom' : ''" href="javascript:void(0)"
              (click)="switchTab('tab3')">Report</a>
@@ -85,15 +85,30 @@
               <tr *ngFor="let task of finalStructuredData">
                 <td>{{task.productName}}</td>
                 <td>{{task.taskName}}</td>
-                <td style="text-align:center">{{task.week1.completed}} ({{task.week1.target}})</td>
-                <td style="text-align:center">{{task.week2.completed}} ({{task.week2.target}})</td>
-                <td style="text-align:center">{{task.week3.completed}} ({{task.week3.target}})</td>
+                <td style="text-align:center">
+                  {{task.week1.completed}} ({{task.week1.target}}) 
+                  <i class="fa fa-caret-up" *ngIf="task.week1.status ==='Improved'" style="color: green;font-size: 25px;vertical-align: text-bottom" aria-hidden="true"></i>
+                  <i class="fa fa-caret-down" *ngIf="task.week1.status ==='Declined'" style="color: red;font-size: 25px;vertical-align: text-bottom" aria-hidden="true"></i>
+                  <!-- <i class="fa fa-minus" *ngIf="task.week1.status ==='Equal'" style="color: grey;font-size: 25px;vertical-align: text-bottom" aria-hidden="true"></i> -->
+                </td>
+                <td style="text-align:center">
+                  {{task.week2.completed}} ({{task.week2.target}})
+                  <i class="fa fa-caret-up" *ngIf="task.week2.status ==='Improved'" style="color: green;font-size: 25px;vertical-align: text-bottom" aria-hidden="true"></i>
+                  <i class="fa fa-caret-down" *ngIf="task.week2.status ==='Declined'" style="color: red;font-size: 25px;vertical-align: text-bottom" aria-hidden="true"></i>
+                  <!-- <i class="fa fa-minus" *ngIf="task.week2.status ==='Equal'" style="color: grey;font-size: 25px;vertical-align: text-bottom" aria-hidden="true"></i> -->
+                </td>
+                <td style="text-align:center">
+                  {{task.week3.completed}} ({{task.week3.target}})
+                  <i class="fa fa-caret-up" *ngIf="task.week3.status ==='Improved'" style="color: green;font-size: 25px;vertical-align: text-bottom" aria-hidden="true"></i>
+                  <i class="fa fa-caret-down" *ngIf="task.week3.status ==='Declined'" style="color: red;font-size: 25px;vertical-align: text-bottom" aria-hidden="true"></i>
+                  <!-- <i class="fa fa-minus" *ngIf="task.week3.status ==='Equal'" style="color: grey;font-size: 25px;vertical-align: text-bottom" aria-hidden="true"></i> -->
+                </td>
               </tr>
             </table>
             </div>
   </div>
 
-  <div class="row" *ngIf="tabs.tab1">
+  <!-- <div class="row" *ngIf="tabs.tab1">
     <div class="col-sm-5 m-3 col-md-5 col-lg-3 cBranch" *ngFor="let b of branchWiseData">
         <div class="card" >
           <div class="card-body">
@@ -112,7 +127,7 @@
           </div>
         </div>
     </div>
-  </div>
+  </div> -->
 
   <div class="row" *ngIf="tabs.tab3">
       <form class="form-inline">
@@ -169,25 +184,23 @@
         <thead>
           <tr>
             <th scope="col">#</th>
+            <th scope="col">Completed Date</th>
             <th scope="col">Branch</th>
-            <th scope="col">Product</th>
-            <th scope="col">Quantity</th>
-            <th scope="col">Session</th>
-            <th scope="col">Submitted By</th>
-            <th scope="col">Date/Time</th>
-            <th scope="col">Comments</th>
+            <th scope="col">Product ID</th>
+            <th scope="col">Product Name</th>
+            <th scope="col">Task Name</th>
+            <th scope="col">Quantity Completed</th>
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let report of reportResult | filter : 'product_name' : searchByProduct | filter : 'branch_name' : searchByBranch; let i=index">
+          <tr *ngFor="let report of reportResult | filter : 'productName' : searchByProduct | filter : 'branchName' : searchByBranch; let i=index">
             <td scope="row">{{i+1}}</td>
-            <td>{{report.branch_name}}</td>
-            <td>{{report.product_name}}</td>
-            <td>{{report.quantity}}</td>
-            <td>{{report.enter_session}}</td>
-            <td>{{report.entered_by}}</td>
-            <td>{{report.entered_date | date:'dd/MM/yyyy hh:mm:ss'}}</td>
-            <td title = "{{report.comments}}">{{report.comments ? report.comments.substring(0,30) : ''}}</td>
+            <td>{{report.submittedDate}}</td>
+            <td>{{report.branchName}}</td>
+            <td>{{report.productId}}</td>
+            <td>{{report.productName}}</td>
+            <td>{{report.taskName}}</td>
+            <td>{{report.taskCompleted}}</td>
           </tr>
         </tbody>
       </table>
@@ -196,7 +209,7 @@
     </div>
 
 
-  <div class="row" *ngIf="tabs.tab2">
+  <!-- <div class="row" *ngIf="tabs.tab2">
 
       <div class="row mt-4 offset-md-1">
         <div class="col-md-12 ">
@@ -230,4 +243,4 @@
             </div>
         </div>
       </div>
-     </div>
+     </div> -->

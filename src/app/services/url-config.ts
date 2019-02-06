@@ -20,11 +20,11 @@ export class UrlService {
 	}
 
 	getBaseUrl() {
-		return this.urlList['klocalBaseUrl'];
+		return this.urlList['localBaseUrl'];
 	}
 
 	getBaseUrlForImages(){
-		return this.urlList['klocalBaseImageUrl'];
+		return this.urlList['localBaseImageUrl'];
 	}
 
 
