@@ -30,6 +30,13 @@ export class ReportService {
     });
   }
 
+  getAllTaskReport(){
+    return this.http.get(this.getReportBaseUrl()+"/fetchProductSummary/").map((res: any) => {
+      let inventries = res;
+      return inventries;
+    });
+  }
+
   getStudentsReport(branchID, studentID){
     return this.http.get(this.getBaseUrl()+"/branches/"+branchID+"/studentProgress?studentId="+studentID).map((res: any) => {
       let getStudentReport = res;
@@ -47,6 +54,14 @@ export class ReportService {
   getAllInventoryReportByDate(fromDate: any, toDate: any){
     let filterDateURL = this.getFilterDateURL(fromDate, toDate);
     return this.http.get(this.getReportBaseUrl()+"/inventories"+filterDateURL).map((res: any) => {
+      let inventries = res;
+      return inventries;
+    });
+  }
+
+  getAllTaskReportByDate(fromDate: any, toDate: any){
+    let filterDateURL = this.getFilterDateURL(fromDate, toDate);
+    return this.http.get(this.getReportBaseUrl()+"/fetchProductSummary"+filterDateURL).map((res: any) => {
       let inventries = res;
       return inventries;
     });

@@ -5,14 +5,14 @@
             <a class="nav-link" [ngClass]="tabs.tab4 ? 'activeCustom' : ''" href="javascript:void(0)"
             (click)="switchTab('tab4')">Overall</a>
           </li>
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <a class="nav-link" [ngClass]="tabs.tab1 ? 'activeCustom' : ''" href="javascript:void(0)"
             (click)="switchTab('tab1')">Summary</a>
           </li>
           <li class="nav-item">
              <a class="nav-link" [ngClass]="tabs.tab2 ? 'activeCustom' : ''" href="javascript:void(0)"
              (click)="switchTab('tab2')">Summary(Month)</a>
-          </li>
+          </li> -->
           <li class="nav-item">
              <a class="nav-link" [ngClass]="tabs.tab3 ? 'activeCustom' : ''" href="javascript:void(0)"
              (click)="switchTab('tab3')">Report</a>
@@ -22,43 +22,93 @@
   </div>
 
   <div *ngIf="tabs.tab4">
-      <div class="row">
-          <div class="col-sm-3" *ngFor="let data of overallData">
-              <div class="card" >
-                <div class="card-body">
-                  <div class="col-sm-12"> 
-                      <div class="col-sm-6"> 
-                          <h5 class="card-title">{{data.name}}</h5>
-                      </div>
-                      <div class="col-sm-6">  
-                          <h6 class="card-subtitle mb-2 text-muted">{{data.count}}</h6>
-                      </div>
-                  </div>
+      <div class="row" style="margin-top:15px;">
+          <div class="col-sm-3" *ngFor="let data of overallData" style="border: #f4efef solid 1px;border-radius: 10px;height:80px;">
+              <div class="row"> 
+                <div class="col-sm-6 text-center" style="height: 80px;padding-top: 20px;background: #532863;color: #fff;"> 
+                    <span style="text-transform:uppercase;font-size: 25px;">{{data.name}}</span>
+                </div>
+                <div class="col-sm-6 text-center" style="height: 80px;padding-top: 20px;">  
+                    <span style="font-size: 25px;">{{data.count}}</span>
                 </div>
               </div>
           </div>
-          <div class="col-md-12">
-            <table class="table table-striped">
-              <!-- <th>
-                <td>Product</td>
-                <td>Tasks</td>
-                <td>Week1 </br>({{finalStructuredData[0].week1.period}})</td>
-                <td>Week2 </br>({{finalStructuredData[0].week2.period}})</td>
-                <td>Week3 </br>({{finalStructuredData[0].week3.period}})</td> 
-              </th> -->
+        </div>
+        <div class="row" style="margin-top: 10px;background: #532863;color: #fff;">
+          <div class="col-sm-12 text-center" style="margin-top: 10px;background: #532863;color: #fff;text-align: center;">
+              <div class="text-center" style="font-size:32px;font-weight:800;text-align: center;">
+                <span>STUDENTS PERFORMANCE REVIEW</span>
+              </div>
+            </div>
+        </div>
+        
+          <div class="row">
+            <div class="col-sm-6" style="margin-top:15px;">
+                <form class="form-horizontal">
+                  <div class="form-group">
+                    <label class="control-label">Select Branch:</label>
+                    <select style="margin-left: 15px;width: 250px;" [(ngModel)]="branchSelect" name="branchSelect" (change)="getDetailsForSelectedBranch()">
+                      <option *ngFor="let branch of branchList; let i = index" [value]="i" style="text-align: center"> {{branch.name}}</option>
+                    </select>
+                  </div>
+                </form>
+            </div>
+            <div class="col-sm-6" style="margin-top:15px;">
+              <form class="form-horizontal">
+                <div class="form-group">
+                  <label class="control-label">Select Student:</label>
+                  <select style="margin-left: 15px;width: 250px;" [(ngModel)]="studentSelect" name="studentSelect" (change)="getDetailsForSelectedStudent()">
+                    <option *ngFor="let student of studentsData; let i = index" [value]="i" style="text-align: center"> {{student.firstName}} {{student.lastName}}.</option>
+                  </select>
+                </div>
+              </form>
+          </div>
+          </div>
+          <div class="col-sm-12" *ngIf="showmessage" style="text-align: center;background: #f8f8f8;padding: 20px;font-size: 15px;font-weight: bold;">
+            "Please choose the student to check his overall performance for the last 3 weeks."
+          </div>
+          <div class="col-sm-12" *ngIf="showstudentMsg" style="text-align: center;background: #f8f8f8;padding: 20px;font-size: 15px;font-weight: bold;">
+              "There is no overall perfomance for student {{studentDetails.firstName}} {{studentDetails.lastName}}"
+          </div>
+          
+          <div class="row" *ngIf="viewTable">
+              <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th scope="col" style="background: #532863;color: #fff;width: 200px;">Product</th>
+                  <th scope="col" style="background: #532863;color: #fff;">Tasks</th>
+                  <th scope="col" style="background: #532863;color: #fff;text-align: center;width: 250px;">Week1 <span style="color:#532863;font-weight:600"></span>({{finalStructuredData[0].week1.period}})</th>
+                  <th scope="col" style="background: #532863;color: #fff;text-align: center;width: 250px;">Week2 ({{finalStructuredData[0].week2.period}})</th>
+                  <th scope="col" style="background: #532863;color: #fff;text-align: center;width: 250px;">Week3 ({{finalStructuredData[0].week3.period}})</th>
+                </tr>
+              </thead>
               <tr *ngFor="let task of finalStructuredData">
                 <td>{{task.productName}}</td>
                 <td>{{task.taskName}}</td>
-                <td>{{task.week1.completed}} ({{task.week1.target}})</td>
-                <td>{{task.week2.completed}} ({{task.week2.target}})</td>
-                <td>{{task.week3.completed}} ({{task.week3.target}})</td>
+                <td style="text-align:center">
+                  {{task.week1.completed}} ({{task.week1.target}}) 
+                  <i class="fa fa-caret-up" *ngIf="task.week1.status ==='Improved'" style="color: green;font-size: 25px;vertical-align: text-bottom" aria-hidden="true"></i>
+                  <i class="fa fa-caret-down" *ngIf="task.week1.status ==='Declined'" style="color: red;font-size: 25px;vertical-align: text-bottom" aria-hidden="true"></i>
+                  <!-- <i class="fa fa-minus" *ngIf="task.week1.status ==='Equal'" style="color: grey;font-size: 25px;vertical-align: text-bottom" aria-hidden="true"></i> -->
+                </td>
+                <td style="text-align:center">
+                  {{task.week2.completed}} ({{task.week2.target}})
+                  <i class="fa fa-caret-up" *ngIf="task.week2.status ==='Improved'" style="color: green;font-size: 25px;vertical-align: text-bottom" aria-hidden="true"></i>
+                  <i class="fa fa-caret-down" *ngIf="task.week2.status ==='Declined'" style="color: red;font-size: 25px;vertical-align: text-bottom" aria-hidden="true"></i>
+                  <!-- <i class="fa fa-minus" *ngIf="task.week2.status ==='Equal'" style="color: grey;font-size: 25px;vertical-align: text-bottom" aria-hidden="true"></i> -->
+                </td>
+                <td style="text-align:center">
+                  {{task.week3.completed}} ({{task.week3.target}})
+                  <i class="fa fa-caret-up" *ngIf="task.week3.status ==='Improved'" style="color: green;font-size: 25px;vertical-align: text-bottom" aria-hidden="true"></i>
+                  <i class="fa fa-caret-down" *ngIf="task.week3.status ==='Declined'" style="color: red;font-size: 25px;vertical-align: text-bottom" aria-hidden="true"></i>
+                  <!-- <i class="fa fa-minus" *ngIf="task.week3.status ==='Equal'" style="color: grey;font-size: 25px;vertical-align: text-bottom" aria-hidden="true"></i> -->
+                </td>
               </tr>
             </table>
             </div>
-      </div>
   </div>
 
-  <div class="row" *ngIf="tabs.tab1">
+  <!-- <div class="row" *ngIf="tabs.tab1">
     <div class="col-sm-5 m-3 col-md-5 col-lg-3 cBranch" *ngFor="let b of branchWiseData">
         <div class="card" >
           <div class="card-body">
@@ -77,7 +127,7 @@
           </div>
         </div>
     </div>
-  </div>
+  </div> -->
 
   <div class="row" *ngIf="tabs.tab3">
       <form class="form-inline">
@@ -134,25 +184,23 @@
         <thead>
           <tr>
             <th scope="col">#</th>
+            <th scope="col">Completed Date</th>
             <th scope="col">Branch</th>
-            <th scope="col">Product</th>
-            <th scope="col">Quantity</th>
-            <th scope="col">Session</th>
-            <th scope="col">Submitted By</th>
-            <th scope="col">Date/Time</th>
-            <th scope="col">Comments</th>
+            <th scope="col">Product ID</th>
+            <th scope="col">Product Name</th>
+            <th scope="col">Task Name</th>
+            <th scope="col">Quantity Completed</th>
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let report of reportResult | filter : 'product_name' : searchByProduct | filter : 'branch_name' : searchByBranch; let i=index">
+          <tr *ngFor="let report of reportResult | filter : 'productName' : searchByProduct | filter : 'branchName' : searchByBranch; let i=index">
             <td scope="row">{{i+1}}</td>
-            <td>{{report.branch_name}}</td>
-            <td>{{report.product_name}}</td>
-            <td>{{report.quantity}}</td>
-            <td>{{report.enter_session}}</td>
-            <td>{{report.entered_by}}</td>
-            <td>{{report.entered_date | date:'dd/MM/yyyy hh:mm:ss'}}</td>
-            <td title = "{{report.comments}}">{{report.comments ? report.comments.substring(0,30) : ''}}</td>
+            <td>{{report.submittedDate}}</td>
+            <td>{{report.branchName}}</td>
+            <td>{{report.productId}}</td>
+            <td>{{report.productName}}</td>
+            <td>{{report.taskName}}</td>
+            <td>{{report.taskCompleted}}</td>
           </tr>
         </tbody>
       </table>
@@ -161,7 +209,7 @@
     </div>
 
 
-  <div class="row" *ngIf="tabs.tab2">
+  <!-- <div class="row" *ngIf="tabs.tab2">
 
       <div class="row mt-4 offset-md-1">
         <div class="col-md-12 ">
@@ -195,4 +243,4 @@
             </div>
         </div>
       </div>
-     </div>
+     </div> -->
