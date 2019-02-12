@@ -47,7 +47,7 @@ export class AuthenticationComponent implements OnInit {
         window.sessionStorage.setItem('isAdmin',resp['isAdmin']);
         setTimeout(()=>{
           if(resp['isAdmin'] =='Y') 
-            this.router.navigateByUrl("/admin-dashboard/target-configuration");
+            this.router.navigateByUrl("/admin-dashboard/home");
           else
            this.router.navigateByUrl('/dashboard')
         }, 1000);
