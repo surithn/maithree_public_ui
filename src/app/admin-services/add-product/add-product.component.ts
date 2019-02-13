@@ -42,7 +42,7 @@ export class AddProductComponent implements OnInit {
 
   ngOnInit() {
     this.getBranchList();
-    
+
   }
 
   getBranchList(){
@@ -56,14 +56,14 @@ export class AddProductComponent implements OnInit {
   this.service.addProduct(this.productRequest).subscribe((resp:any) =>  {
       that.addSuccessMessage = resp.status;
       if(resp.status){
-        that.responseMessage = "Product Added Successfully";
+        that.responseMessage = "Product Updated Successfully";
       } else {
         that.responseMessage = "Please enter valid details to add product";
       }
       console.log(resp);
     })
   }
-  
+
   editProducts(){
   var that = this;
   this.service.editProduct(this.productRequest).subscribe((resp:any) =>  {

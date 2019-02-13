@@ -20,22 +20,22 @@ export class StudentsComponent implements OnInit {
   // private selectedTeacher ="-1";
   private selectedStudent;
   private selectedProduct;
-  // private successMessage=false;
-  // private responseMessage="Task updated successfully";
-  // private showMessage=false;
-  
-  
+  //private successMessage=false;
+  private responseMessage="Task count updated successfully";
+  private showMessage=false;
+
+
   form: FormGroup;
-  private studentsData; 
+  private studentsData;
   private productsData;
-  private tasksData; 
+  private tasksData;
   ngOnInit() {
     console.log(this.selectedStudent);
   	this.activeRoute.params.subscribe(params => {
       this.branchId = params['id'];
       this.getStudentList(this.branchId);
     });
-      
+
     this.form = this.formBuilder.group({
       teacher: [null, Validators.required],
     });
@@ -47,13 +47,13 @@ export class StudentsComponent implements OnInit {
   			this.teachersList = teachersList;
   		})
     }
-    
+
     getStudentList(id: string) {
   		this.service.getStudentList(id).subscribe((studentList:any)=> {
   			this.studentsData = studentList;
   		})
     }
-    
+
     getProductList(id: string) {
       var request = {"studentId" : id};
   		this.service.getProductsForStudent(this.branchId, request).subscribe((productList:any)=> {
@@ -62,7 +62,7 @@ export class StudentsComponent implements OnInit {
     }
 
     getTaskList(studentid: string, productid: string) {
-      var request = 
+      var request =
       {
         "studentId" : studentid,
         "productId" : productid
@@ -71,8 +71,9 @@ export class StudentsComponent implements OnInit {
   			this.tasksData = taskList;
   		})
   	}
-    
+
     getProducts(data){
+      this.showMessage = false;
       console.log("check for data", data);
       this.selectedProduct=null;
       if(data.studentId != null && data.studentId != undefined){
@@ -117,6 +118,7 @@ export class StudentsComponent implements OnInit {
       this.selectedStudent=null;
       this.selectedProduct=null;
       this.getStudentList(this.branchId);
+      this.showMessage = true;
     }
     cancel(){
       this.selectedStudent=null;

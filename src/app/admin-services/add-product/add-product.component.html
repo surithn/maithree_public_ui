@@ -12,20 +12,20 @@
 
           <div class="col-lg-5">
             <label>Product Name</label>
-            <input type="text" 
-            class="form-control" 
+            <input type="text"
+            class="form-control"
             placeholder="Product Name"
-            name="productRequestproductName" 
+            name="productRequestproductName"
             id="productRequestproductName"
             [(ngModel)]="productRequest.productName">
           </div>
 
           <div class="col-lg-5">
             <label>Product Description</label>
-            <input type="text" 
-            class="form-control" 
+            <input type="text"
+            class="form-control"
             placeholder="Product Description"
-            name="productRequestproductDescription" 
+            name="productRequestproductDescription"
             id="productRequestproductDescription"
             [(ngModel)]="productRequest.productDescription">
           </div>
@@ -45,7 +45,7 @@
                 <label>Selected : </label>
                 <div *ngFor="let branch of this.productRequest.branchDetails; let i = index">
                   {{branch.name}}
-                </div> 
+                </div>
             </div>
           </div>
         </div>
@@ -88,17 +88,18 @@
         </tbody>
       </table>
 
-      <button type="button" 
-        class="btn btn-info" 
+      <button type="button"
+        class="btn btn-info"
         (click)="submitProduct(false)"
         style="background-color: #16A085; float:right; margin-right:20px">
         Submit
       </button>
 
       <div class="row" *ngIf = "addSuccessMessage">
-        <div class="col-lg-12">
-          <h4 class="text-center" style="margin: auto 0" [style.color]="addSuccessMessage==true?'Green':'Red'">{{responseMessage}}</h4>
-        </div>  
+        <div class="col-lg-9 alert alert-success alert-dismissible">
+          <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+          <h5 class="text-center" style="margin: auto 0" [style.color]="addSuccessMessage==true?'Green':'Red'">{{responseMessage}}</h5>
+        </div>
       </div>
     </div>
     </div>
@@ -108,20 +109,20 @@
       <div>
           <form>
             <div class="form-group row" style="margin-top: 15px;">
-    
+
               <div class="col-lg-6">
                 <label>Product Name</label>
                 <select [(ngModel)]="productSelect" name="productSelect" (change)="getSelectedProductDetails()">
                     <option *ngFor="let product of productList; let i = index" [value]="i"> {{product.name}}</option>
                   </select>
               </div>
-    
+
               <div class="col-lg-2" style="text-align: center;">
                 <label class="checkbox-inline">
                     <input type="checkbox" [(ngModel)]="productRequest.isActivity" name="isActivity" style="margin-right: 10px;">Activity
                   </label>
               </div>
-    
+
               <div class="col-lg-6" style="margin-top: 15px;">
                 <label>Select Branch</label>
                 <select [(ngModel)]="branchSelect" name="branchSelect" (change)="getSelectedBranch()">
@@ -131,7 +132,7 @@
                     <label>Selected : </label>
                     <div *ngFor="let branch of this.productRequest.branchDetails; let i = index">
                       {{branch.name}}
-                    </div> 
+                    </div>
                 </div>
               </div>
             </div>
@@ -174,17 +175,18 @@
         </tbody>
       </table>
 
-      <button type="button" 
-        class="btn btn-info" 
+      <button type="button"
+        class="btn btn-info"
         (click)="submitProduct(true)"
         style="background-color: #16A085; float:right; margin-right:20px">
         Submit
       </button>
 
       <div class="row" *ngIf = "updateSuccessMessage">
-        <div class="col-lg-12">
-          <h4 class="text-center" style="margin: auto 0" [style.color]="updateSuccessMessage==true?'Green':'Red'">{{responseMessage}}</h4>
-        </div>  
+        <div class="col-lg-9 alert alert-success alert-dismissible">
+          <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+          <h5 class="text-center" style="margin: auto 0" [style.color]="updateSuccessMessage==true?'Green':'Red'">{{responseMessage}}</h5>
+        </div>
       </div>
 
     </div>
