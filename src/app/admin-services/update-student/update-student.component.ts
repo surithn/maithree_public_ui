@@ -251,7 +251,7 @@ export class UpdateStudentComponent implements OnInit {
 
       that.productList = [];
       this.productDetails.forEach(function(product){
-        that.productList.push(product) 
+        that.productList.push(product)
       })
     })
 
@@ -303,7 +303,7 @@ export class UpdateStudentComponent implements OnInit {
       that.displayMessage = true;
       that.addSuccessMessage = resp.status;
       if(resp.status){
-        that.responseMessage = "Student Added Successfully";
+        that.responseMessage = "Student Updated Successfully";
       } else {
         that.responseMessage = "Please enter valid details to add student";
       }
