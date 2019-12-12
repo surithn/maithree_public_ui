@@ -20,9 +20,11 @@ export class AddStudentComponent implements OnInit {
   branchList=[];
   productList=[];
   taskList =[];
+  teachersList =[];
 
   branchSelect="";
-  stateSelect="";
+  stateSelect="AN";
+  memberSelect="";
   states=[];
   taskmapping={
     productSelected:{},
@@ -42,6 +44,7 @@ export class AddStudentComponent implements OnInit {
     "gender": "",
     "dob": "",
     "branchId":"",
+    "memberId":"",
     "tasks": [
     ]
   }
@@ -219,9 +222,6 @@ export class AddStudentComponent implements OnInit {
   }
 
   addTaskToStudent(){
-    console.log("that.productList",this.productList)
-    console.log("that.taskList",this.taskList)
-    console.log("this.productDetails",this.productDetails)
     var tempMap={}
     var that=this;
     this.productList.forEach(function(product){
@@ -243,23 +243,30 @@ export class AddStudentComponent implements OnInit {
     var that = this;
     var branchSelected = this.branchSelect;
     var branchId = this.branchList[branchSelected].id
-    var branchName = this.branchList[branchSelected].name
-
+    
     this.service.getProductsDetailsForBranch(branchId).subscribe((products:any) =>  {
       this.productDetails = products;
-
       that.productList = [];
       this.productDetails.forEach(function(product){
         that.productList.push(product)
       })
-    })
+
+      this.service.getTeachersList(branchId).subscribe((teachersList:any)=> {
+        this.teachersList = teachersList;
+      });
+    });
 
     this.studentRequest.branchId = this.branchList[branchSelected].id;
   }
 
+  setMemberIdOnChange() {
+    var memberSelected = this.memberSelect;
+    var memberId = this.teachersList[memberSelected].id
+    this.studentRequest.memberId = memberId;
+  }
+
   getTasksForSelectedProduct(product){
     var that = this;
-    console.log("product",product)
     that.taskList = [];
     this.productDetails.forEach(function(productDetail){
       if(productDetail.id == product){
@@ -295,7 +302,6 @@ export class AddStudentComponent implements OnInit {
       } else {
         that.responseMessage = "Please enter valid details to add student";
       }
-      console.log(resp,that.addSuccessMessage);
     })
   }
 }

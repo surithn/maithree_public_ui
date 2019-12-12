@@ -10,6 +10,7 @@ import { Router, ActivatedRoute } from "@angular/router";
 import { LocalStorage } from '@ngx-pwa/local-storage';
 
 import { UrlService } from './url-config';
+import { Teacher } from '../admin-services/add-teacher/teacher';
 
 
 @Injectable()
@@ -95,6 +96,14 @@ export class AppService {
           });
     }
 
+    addMember(member: Teacher) {
+        return this.http.post(this.getBaseUrl() + "/admin/addMember", member);
+    };
+
+    editMember(member: Teacher) {
+        return this.http.post(this.getBaseUrl() + "/admin/editMember", member);
+    };
+
     editStudent(student:any){
         console.log(student);
         return this.http.post(this.getBaseUrl() + "/admin/editStudent",student)
@@ -111,6 +120,13 @@ export class AppService {
                 return teachersList;
         });
     }
+
+    getAllMembersList() {
+        return this.http.get(this.getBaseUrl()+ "/admin/getAllMembers").map((response: Response) => {
+               let teachersList = response;
+               return teachersList;
+       });
+   }
 
     getStudentList(branchId: string) {
         return this.http.get(this.getBaseUrl()+"/branches/" +branchId + "/getStudents").map((response: Response) => {
